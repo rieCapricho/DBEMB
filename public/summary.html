@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/images/logo2.PNG">
+    <title>Davao Blue Eagle Scout - Cirva A La Gente Por La Musica</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+    if (!localStorage.getItem("user")) {
+        window.location.href = "login";
+    }    
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const currentUrl = window.location.href;
+    const links = document.querySelectorAll('.accordion-menu a');
+
+    links.forEach(link => {
+        if (currentUrl.includes(link.getAttribute('href'))) {
+            link.classList.add('active');
+        }
+    });
+});
+
+
+</script>
+    
+    </head>
+    <body>
+        <div style="position: fixed;top: 0px;left: 0px;width: 100%;background: #F4F7FC;z-index: 9999;padding: 0px;">
+  <div class="lime-sidebar">
+    <div class="lime-sidebar-inner slimscroll">
+      <ul class="accordion-menu">
+        <li class="sidebar-title">Navigations</li>
+        <li><a href="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+        <li><a href="events"><i class="material-icons">event</i><span>Events</span></a></li>
+        <li><a href="revenues"><i class="material-icons">trending_up</i><span>Revenues</span></a></li>
+        <li><a href="payments"><i class="material-icons">payment</i><span>Payments</span></a></li>
+        <li><a href="expenses"><i class="material-icons">request_quote</i><span>Expenses</span></a></li>
+        <li><a href="officers"><i class="material-icons">people</i><span>Officers</span></a></li>
+        <li><a href="login_history"><i class="material-icons">schedule</i><span>Login History</span></a></li>
+        <li><a href="summary"><i class="material-icons">bar_chart</i>Summary</a></li>
+
+        <li><a href="members"><i class="material-icons">people</i><span>Members</span></a></li>
+      </ul>
+      <ul class="accordion-menu" id="Othersnav">
+        <li class="divider"></li>
+        <li class="sidebar-title">Others</li>
+        <li><a onclick="localStorage.removeItem('user'); window.location.href = 'login';"><i class="material-icons">power_settings_new</i><span>Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 1024px) {
+      #Othersnav {
+        display: block;
+      }
+    }
+    @media (min-width: 1025px) {
+      #Othersnav {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="lime-header" style="padding: 0px;">
+    <nav class="navbar navbar-expand-lg">
+      <section class="material-design-hamburger navigation-toggle">
+        <a href="javascript:void(0)" class="button-collapse material-design-hamburger__icon">
+          <span class="material-design-hamburger__layer"></span>
+        </a>
+      </section>
+      <a class="navbar-brand" href="">
+        <img src="assets/images/logo2.png" style="height: 75px;width: 75px;">
+      </a>
+      <button class="navbar-toggler" type="button"  style="margin-right: 10px" onclick="localStorage.removeItem('user'); window.location.href = 'login';">
+        <i class="material-icons" style="font-size: 20px;">power_settings_new</i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="material-icons">more_vert</i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a class="dropdown-item" onclick="localStorage.removeItem('user'); window.location.href = 'login';">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+            
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        
+ 
+        
+        <div class="lime-container" style="">
+            <div class="lime-body" style="margin-top:100px">
+                <div class="container">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card stat-card">
+                                <div class="card-body">
+                                   <div class="row justify-content-center">
+    <div class="col-auto">
+        <label for="monthInput" class="form-label">Select Month and Year:</label>
+        <input type="month" id="monthInput" class="form-control">
+    </div>
+</div>
+
+<script>
+    document.getElementById('monthInput').addEventListener('change', function () {
+        const selectedValue = this.value; // Format: YYYY-MM
+        if (selectedValue) {
+            // Redirect to /summary?date=YYYY-MM
+            window.location.href = `http://localhost:3000/summary?date=${selectedValue}`;
+        }
+    });
+</script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                 
+                    <div class="row">
+
+                        
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="text-align: center;">Revenues Summary</h5>
+                                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card stat-card">
+                                <div class="card-body bg-warning">
+                                    <h5 class="card-title">Total Amount Given</h5>
+                                    <h2 class="float-right" id="TotalAmountGiven" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card stat-card">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title">Total BandShares</h5>
+                                    <h2 class="float-right" id="TotalBandShares" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table" id="revenueTable">
+    <thead>
+        <tr>
+            <th scope="col">Event</th>
+            <th scope="col">Description</th>
+            <th scope="col">Amount Given</th>
+            <th scope="col">Band Share</th>
+            <th scope="col">Members Talent Fee</th>
+            <th scope="col">Total Fee</th> <!-- New Column -->
+            <th scope="col">Incharge</th>
+            <th scope="col">Keeper</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+                                    </div>      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedDate = urlParams.get("date");
+
+    async function fetchRevenueSummary() {
+        if (!selectedDate) return;
+
+        try {
+            const response = await fetch(`/revenues-summary/${selectedDate}`);
+            const data = await response.json();
+
+            let totalGiven = 0;
+            let totalShare = 0;
+            const tbody = document.querySelector('#revenueTable tbody');
+            tbody.innerHTML = '';
+
+            
+
+            data.forEach(row => {
+              let date = new Date(row.event_date);
+date.setDate(date.getDate() + 1); // Add 1 day
+
+let formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+});
+
+                
+
+                totalGiven += parseFloat(row.AmountGiven || 0);
+                totalShare += parseFloat(row.BandShare || 0);
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${row.EventName}<br>${formattedDate}</td>
+                        <td>${row.Description}</td>
+                        <td>${row.AmountGiven}</td>
+                        <td>${row.BandShare}</td>
+                        <td>${row.MembersTalentFee}</td>
+                        <td>${row.TotalFee}</td>
+                        <td>${row.customer_incharge}</td>
+                        <td>${row.KeeperName}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('TotalAmountGiven').textContent = totalGiven.toFixed(2);
+            document.getElementById('TotalBandShares').textContent = totalShare.toFixed(2);
+
+        } catch (err) {
+            console.error("Failed to fetch summary:", err);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        fetchRevenueSummary(); // run once immediately
+        setInterval(fetchRevenueSummary, 1000); // run every second
+    });
+</script>
+
+
+
+                    
+
+
+
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                
+                                <div class="card-body">
+   <h5 class="card-title" style="text-align: center;">Expenses Summary</h5>
+                                     <div class="row">
+                        
+                        <div class="col-md-6">
+                            <div class="card stat-card">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title">Total Amount</h5>
+                                    <h2 class="float-right" id="TotalAmount" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card stat-card">
+                                <div class="card-body bg-warning">
+                                    <h5 class="card-title">Total Amount Given</h5>
+                                    <h2 class="float-right" id="TotalAmountGiven2" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                 
+                                    <div class="table-responsive">
+                                        <table class="table" id="expensesTable">
+        <thead>
+            <tr>
+                
+                <th>Date Encoded</th>
+                <th>Event</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Date Used</th>
+                <th>Amount Given</th>
+                <th>Date Given</th>
+                <th>Incharge</th>
+                <th>Officer</th>
+                
+            </tr>
+        </thead>
+    </table>
+                                    </div>      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+  const urlParams2 = new URLSearchParams(window.location.search);
+  const selectedDate2 = urlParams2.get('date');
+
+  async function fetchExpensesSummary() {
+    if (!selectedDate2) return;
+
+    try {
+      const response = await fetch(`/expenses-summary/${selectedDate2}`);
+      const data = await response.json();
+
+      const tbody = document.querySelector('#expensesTable tbody') || (() => {
+        const table = document.getElementById('expensesTable');
+        const tb = document.createElement('tbody');
+        table.appendChild(tb);
+        return tb;
+      })();
+
+      tbody.innerHTML = '';
+
+      function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  if (isNaN(date)) return '';
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+
+const formatDateplus1 = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    date.setDate(date.getDate() + 1); // Add one day
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+};
+
+
+let totalAmount = 0;
+            let totalAmountGiven2 = 0;
+data.forEach(row => {
+
+    totalAmount += parseFloat(row.Amount || 0);
+    totalAmountGiven2 += parseFloat(row.AmountGiven || 0);
+
+
+  tbody.innerHTML += `
+    <tr>
+      <td>${formatDate(row.DateEncoded)}</td>
+      <td>${row.EventName ?? ''}<br>${formatDateplus1(row.event_date)}</td>
+      <td>${row.Description ?? ''}</td>
+      <td>${parseFloat(row.Amount).toFixed(2)}</td>
+      <td>${formatDate(row.DateUsed)}</td>
+      <td>${row.AmountGiven != null ? parseFloat(row.AmountGiven).toFixed(2) : ''}</td>
+      <td>${formatDate(row.DateGiven)}</td>
+      <td>${row.customer_incharge ?? ''}</td>
+      <td>${row.OfficerName ?? ''}</td>
+    </tr>
+  `;
+});
+    document.getElementById('TotalAmountGiven2').textContent = totalAmountGiven2.toFixed(2);
+            document.getElementById('TotalAmount').textContent = totalAmount.toFixed(2);
+
+
+
+    } catch (err) {
+      console.error('Failed to fetch expenses summary:', err);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchExpensesSummary();
+    setInterval(fetchExpensesSummary, 1000); // refresh every second if you want
+  });
+</script>
+
+
+
+
+
+
+
+                   
+                </div>
+            </div>
+            <div class="lime-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="footer-text">2025 © Davao Blue Eagle Scout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- Javascripts -->
+        <script src="assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+        <script src="assets/plugins/bootstrap/popper.min.js"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/plugins/chartjs/chart.min.js"></script>
+        <script src="assets/plugins/apexcharts/dist/apexcharts.min.js"></script>
+        <script src="assets/js/lime.min.js"></script>
+        <script src="assets/js/pages/dashboard.js"></script>
+    </body>
+</html>

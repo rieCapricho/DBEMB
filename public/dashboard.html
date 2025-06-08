@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/images/logo2.PNG">
+    <title>Davao Blue Eagle Scout - Cirva A La Gente Por La Musica</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Added Chart.js -->
+    <script type="text/javascript">
+    if (!localStorage.getItem("user")) {
+        window.location.href = "login";
+    }    
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const currentUrl = window.location.href;
+    const links = document.querySelectorAll('.accordion-menu a');
+
+    links.forEach(link => {
+        if (currentUrl.includes(link.getAttribute('href'))) {
+            link.classList.add('active');
+        }
+    });
+});
+
+
+</script>
+    
+    </head>
+    <body>
+        <div style="position: fixed;top: 0px;left: 0px;width: 100%;background: #F4F7FC;z-index: 9999;padding: 0px;">
+ <div class="lime-sidebar">
+    <div class="lime-sidebar-inner slimscroll">
+      <ul class="accordion-menu">
+        <li class="sidebar-title">Navigations</li>
+        <li><a href="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+        <li><a href="events"><i class="material-icons">event</i><span>Events</span></a></li>
+        <li><a href="revenues"><i class="material-icons">trending_up</i><span>Revenues</span></a></li>
+        <li><a href="payments"><i class="material-icons">payment</i><span>Payments</span></a></li>
+        <li><a href="expenses"><i class="material-icons">request_quote</i><span>Expenses</span></a></li>
+        <li><a href="officers"><i class="material-icons">people</i><span>Officers</span></a></li>
+        <li><a href="login_history"><i class="material-icons">schedule</i><span>Login History</span></a></li>
+        <li><a href="summary"><i class="material-icons">bar_chart</i>Summary</a></li>
+
+        <li><a href="members"><i class="material-icons">people</i><span>Members</span></a></li>
+      </ul>
+      <ul class="accordion-menu" id="Othersnav">
+        <li class="divider"></li>
+        <li class="sidebar-title">Others</li>
+        <li><a onclick="localStorage.removeItem('user'); window.location.href = 'login';"><i class="material-icons">power_settings_new</i><span>Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 1024px) {
+      #Othersnav {
+        display: block;
+      }
+    }
+    @media (min-width: 1025px) {
+      #Othersnav {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="lime-header" style="padding: 0px;">
+    <nav class="navbar navbar-expand-lg">
+      <section class="material-design-hamburger navigation-toggle">
+        <a href="javascript:void(0)" class="button-collapse material-design-hamburger__icon">
+          <span class="material-design-hamburger__layer"></span>
+        </a>
+      </section>
+      <a class="navbar-brand" href="">
+        <img src="assets/images/logo2.png" style="height: 75px;width: 75px;">
+      </a>
+      <button class="navbar-toggler" type="button"  style="margin-right: 10px" onclick="localStorage.removeItem('user'); window.location.href = 'login';">
+        <i class="material-icons" style="font-size: 20px;">power_settings_new</i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="material-icons">more_vert</i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a class="dropdown-item" onclick="localStorage.removeItem('user'); window.location.href = 'index.html';">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+            
+
+        <div class="lime-container">
+            <div class="lime-body" style="margin-top:100px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card bg-info text-white">
+
+                                <div class="card-body" style="background-image: url('assets/images/login.jpg'); background-size: cover; background-position: center; position: relative;">
+    <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="dashboard-info row" style="position: relative; z-index: 2; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+            <img src="assets/images/logo2.png" style="height: 150px; width: 100%;">
+        </div>
+        <div>
+            <h5 class="card-title" style="margin-bottom: 0px; font-family: 'Inter';font-size: 20px;">Cirva A La Gente Por La Musica</h5>
+            <p style="font-size: 14px;font-weight: lighter;">Serving the People through Music</p>
+        </div>
+    </div>
+</div>
+
+                            </div>
+                        </div>      
+                                             
+                    </div>
+
+
+                    <div class="row">
+    <div class="col-md-12" >
+        <div class="d-flex justify-content-between" style="padding: 25px;background-color: #060F2E;color: white;">
+        <span>Current Balance</span>
+        <p id="totalBalance" class="mb-0" style="font-size: 25px;"></p>
+        </div>
+    </div>
+</div>
+
+
+
+                    <!-- Added Bar Chart Section -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="text-align: center;">Monthly Revenues and Expenses</h5>
+                                    
+                                    <canvas id="barChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="lime-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="footer-text">2025 © Davao Blue Eagle Scout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Javascripts -->
+        <script src="assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+        <script src="assets/plugins/bootstrap/popper.min.js"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/plugins/chartjs/chart.min.js"></script>
+        <script src="assets/plugins/apexcharts/dist/apexcharts.min.js"></script>
+        <script src="assets/js/lime.min.js"></script>
+        <script src="assets/js/pages/dashboard.js"></script>
+
+        <!-- Added Chart Script -->
+        <script>
+
+            async function loadTotalBalance() {
+            try {
+                const res = await fetch("/total_balance");
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById("totalBalance").innerText = `₱${data.totalBalance.toFixed(2)}`;
+                } else {
+                    document.getElementById("totalBalance").innerText = "Error loading total.";
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById("totalBalance").innerText = "Server error.";
+            }
+        }
+
+        window.onload = loadTotalBalance;
+
+
+            $(document).ready(function () {
+                // Fetch data for the last 6 months
+                const months = [];
+                const currentDate = new Date();
+                for (let i = 5; i >= 0; i--) {
+                    const date = new Date(currentDate);
+                    date.setMonth(currentDate.getMonth() - i);
+                    months.push(date.toISOString().slice(0, 7)); // Format: YYYY-MM
+                }
+
+                // Arrays to store total revenues and expenses for each month
+                const totalRevenues = [];
+                const totalExpenses = [];
+
+                // Fetch data for each month
+                const fetchPromises = months.map(month => {
+                    return Promise.all([
+                        fetch(`/summary/revenues/${month}`).then(response => response.json()),
+                        fetch(`/summary/expenses/${month}`).then(response => response.json())
+                    ]);
+                });
+
+                // Process fetched data
+                Promise.all(fetchPromises).then(results => {
+                    results.forEach(([revenues, expenses], index) => {
+                        // Calculate total revenue for the month
+                        const revenueTotal = revenues.reduce((sum, revenue) => sum + (revenue.BandShare || 0), 0);
+                        totalRevenues.push(revenueTotal);
+
+                        // Calculate total expense for the month
+                        const expenseTotal = expenses.reduce((sum, expense) => sum + (expense.Amount || 0), 0);
+                        totalExpenses.push(expenseTotal);
+                    });
+
+                    // Render the bar chart
+                    renderBarChart(months, totalRevenues, totalExpenses);
+                }).catch(error => {
+                    console.error("Error fetching data:", error);
+                });
+
+                // Function to render the bar chart
+                function renderBarChart(labels, revenues, expenses) {
+                    const ctx = document.getElementById('barChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Total Revenues',
+                                    data: revenues,
+                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                    borderColor: 'rgba(75, 192, 192, 1)',
+                                    borderWidth: 1
+                                },
+                                {
+                                    label: 'Total Expenses',
+                                    data: expenses,
+                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                    borderColor: 'rgba(255, 99, 132, 1)',
+                                    borderWidth: 1
+                                }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Amount (PHP)'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Month'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Monthly Revenues and Expenses'
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

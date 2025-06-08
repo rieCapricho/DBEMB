@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/images/logo2.PNG">
+    <title>Davao Blue Eagle Scout - Calendar</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #calendar { margin-top: 20px; }
+        #eventDetailsModal { margin-top: 100px; z-index: 10000; }
+        .fc-event { cursor: pointer; }
+        .fc-header-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fc-toolbar-title {
+            font-size: 1.25em;
+            margin: 0 10px;
+        }
+        .fc-button {
+            background-color: #07102F;
+            border-color: #07102F;
+        }
+        .fc-button:hover {
+            background-color: #0d1a4a;
+            border-color: #0d1a4a;
+        }
+        .guest-mode .sidebar-nav,
+        .guest-mode .navbar-dropdown {
+            display: none !important;
+        }
+        .guest-mode .lime-body {
+            margin-top: 20px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        const fromGuest = window.location.search.includes('guest=true');
+        if (!localStorage.getItem("user") && !fromGuest) {
+            window.location.href = "login";
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const isGuest = window.location.search.includes('guest=true');
+            if (isGuest) {
+                document.body.classList.add('guest-mode');
+            }
+
+            const currentUrl = window.location.href;
+            const links = document.querySelectorAll('.accordion-menu a');
+            links.forEach(link => {
+                if (currentUrl.includes(link.getAttribute('href'))) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div style="position: fixed;top: 0px;left: 0px;width: 100%;background: #F4F7FC;z-index: 9999;padding: 0px;">
+        <div class="lime-sidebar">
+            <div class="lime-sidebar-inner slimscroll">
+                <ul class="accordion-menu">
+                    <li class="sidebar-title">Navigations</li>
+                    <li><a href="calendar.html?guest=true" class="active"><i class="material-icons">calendar_today</i><span>Calendar</span></a></li>
+                    <li><a href="aboutus"><i class="material-icons">info</i><span>About Us</span></a></li>
+                    <li><a href="login"><i class="material-icons">people</i><span>Login</span></a></li>
+                </ul>
+                <ul class="accordion-menu" id="Othersnav">
+                    <li class="divider"></li>
+                 </ul>
+            </div>
+        </div>
+        <style>
+            @media (max-width: 1024px) { #Othersnav { display: block; } }
+            @media (min-width: 1025px) { #Othersnav { display: none; } }
+        </style>
+        <div class="lime-header" style="padding: 0px;">
+            <nav class="navbar navbar-expand-lg">
+                <section class="material-design-hamburger navigation-toggle">
+                    <a href="javascript:void(0)" class="button-collapse material-design-hamburger__icon">
+                        <span class="material-design-hamburger__layer"></span>
+                    </a>
+                </section>
+                <a class="navbar-brand" href="">
+                    <img src="assets/images/logo2.png" style="height: 75px;width: 75px;">
+                </a>
+                
+               
+            </nav>
+        </div>
+    </div>
+
+    <div class="lime-container">
+        <div class="lime-body" style="margin-top:100px">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body" style="padding-top: 100px;">
+                                <h5 class="card-title" style="text-align: center;">Events Calendar</h5>
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lime-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="footer-text">2025 © Davao Blue Eagle Scout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Details Modal -->
+    <div class="modal fade" id="eventDetailsModal" tabindex="-1" role="dialog" aria-labelledby="eventDetailsModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventDetailsModalLabel">Event Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Date:</strong> <span id="modalEventDate"></span></p>
+                    <p><strong>Event Name:</strong> <span id="modalEventName"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev',
+                    center: 'title',
+                    right: 'next'
+                },
+                displayEventTime: false,
+                events: function(fetchInfo, successCallback, failureCallback) {
+                    $.ajax({
+                        url: '/alleventsforcalendar',
+                        type: 'GET',
+                        success: function(response) {
+                            var events = response.map(function(event) {
+                                return {
+                                    id: event.EventTypeID,
+                                    title: event.EventName,
+                                    start: event.EventDate, // Corrected
+                                    
+                                };
+                            });
+                            successCallback(events);
+                        },
+                        error: function(error) {
+                            console.error('Error fetching events:', error);
+                            failureCallback(error);
+                        }
+                    });
+                },
+                eventClick: function(info) {
+                    var eventDate = new Date(info.event.start);
+                    var formattedDate = eventDate.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    $('#modalEventDate').text(formattedDate);
+                    $('#modalEventName').text(info.event.title);
+
+                    $('#eventDetailsModal').modal('show');
+                },
+                eventContent: function(arg) {
+                    return { html: '<div style="text-align:center"><div class="fc-event-title">' + arg.event.title + '</div></div>' };
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+
+    <!-- Javascripts -->
+    <script src="assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+    <script src="assets/plugins/bootstrap/popper.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/lime.min.js"></script>
+</body>
+</html>

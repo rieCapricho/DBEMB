@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/images/logo2.PNG">
+    <title>Davao Blue Eagle Scout - Cirva A La Gente Por La Musica</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Remove arrows/spinners from number inputs */
+        input[type=number]::-webkit-outer-spin-button,
+        input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        select {
+    -webkit-appearance: none;
+    -moz-appearance: none;    
+    appearance: none;         
+    background: none;        
+}
+
+        
+    </style>
+    <script type="text/javascript">
+    if (!localStorage.getItem("user")) {
+        window.location.href = "login";
+    }    
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const currentUrl = window.location.href;
+    const links = document.querySelectorAll('.accordion-menu a');
+
+    links.forEach(link => {
+        if (currentUrl.includes(link.getAttribute('href'))) {
+            link.classList.add('active');
+        }
+    });
+});
+</script>
+    
+    </head>
+   <body>
+        <div style="position: fixed;top: 0px;left: 0px;width: 100%;background: #F4F7FC;z-index: 9999;padding: 0px;">
+ <div class="lime-sidebar">
+    <div class="lime-sidebar-inner slimscroll">
+      <ul class="accordion-menu">
+        <li class="sidebar-title">Navigations</li>
+        <li><a href="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+        <li><a href="events"><i class="material-icons">event</i><span>Events</span></a></li>
+        
+        <li><a href="revenues"><i class="material-icons">trending_up</i><span>Revenues</span></a></li>
+        <li><a href="payments"><i class="material-icons">payment</i><span>Payments</span></a></li>
+        <li><a href="expenses"><i class="material-icons">request_quote</i><span>Expenses</span></a></li>
+        <li><a href="officers"><i class="material-icons">people</i><span>Officers</span></a></li>
+        
+             <li><a href="login_history"><i class="material-icons">schedule</i><span>Login History</span></a></li>
+        <li><a href="summary"><i class="material-icons">bar_chart</i>Summary</a></li>
+
+        <li><a href="members"><i class="material-icons">people</i><span>Members</span></a></li>
+      </ul>
+      <ul class="accordion-menu" id="Othersnav">
+        <li class="divider"></li>
+        <li class="sidebar-title">Others</li>
+        <li><a onclick="localStorage.removeItem('user'); window.location.href = 'login';"><i class="material-icons">power_settings_new</i><span>Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 1024px) {
+      #Othersnav {
+        display: block;
+      }
+    }
+    @media (min-width: 1025px) {
+      #Othersnav {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="lime-header" style="padding: 0px;">
+    <nav class="navbar navbar-expand-lg">
+      <section class="material-design-hamburger navigation-toggle">
+        <a href="javascript:void(0)" class="button-collapse material-design-hamburger__icon">
+          <span class="material-design-hamburger__layer"></span>
+        </a>
+      </section>
+      <a class="navbar-brand" href="">
+        <img src="assets/images/logo2.png" style="height: 75px;width: 75px;">
+      </a>
+      <button class="navbar-toggler" type="button"  style="margin-right: 10px" onclick="localStorage.removeItem('user'); window.location.href = 'login';">
+        <i class="material-icons" style="font-size: 20px;">power_settings_new</i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="material-icons">more_vert</i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a class="dropdown-item" onclick="localStorage.removeItem('user'); window.location.href = 'index.html';">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+            
+        <div class="lime-container">
+            <div class="lime-body" style="margin-top:100px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                      <h5 class="card-title" style="text-align: center;">(<span style="color:#07102F" id="totalRows"></span>) Events Management</h5>
+    
+                                    <div class="row">
+                                        <div class="col-12 col-md-12">
+                                            <div class="todo-sidebar">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <div class="todo-new-task">
+                                                            <button class="btn btn-primary btn-block" style="height:42px;" data-toggle="modal" data-target="#newEvent">Create New Events</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 mb-3">
+                                                        <div class="todo-search m-b-lg">
+                                                                <div class="input-group">
+                                                                    <input type="text" id="search" class="form-control" placeholder="Search Events">
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-body" style="padding: 0px;">
+                                                    <div class="table-responsive">
+                                                        <table class="table" id="eventsTable">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">Event Date</th>
+                                                                    <th scope="col">Event Name</th>
+                                                                    <th scope="col">Incharge</th>
+                                                                    <th scope="col">Amount</th>
+                                                                    <th scope="col">Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="modal fade" id="passwordConfirmModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+  Are you sure you want to delete this event? <br>
+   <em>All related data including revenues, expenses, payments, and records will also be deleted.</em>
+</p>
+
+                <div class="form-group">
+                    <label for="deletePassword">To confirm, type your password below</label>
+                    <input type="password" class="form-control" id="deletePassword" placeholder="Password">
+                    <br>
+                    <strong style="color:#FC6060">This action cannot be undone.</strong><br>
+                </div>
+                <div id="passwordError" class="text-danger" style="display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="dummy_confirmDeleteBtn" disabled style="margin-right: -8px;">Delete</button>
+                <form id="deleteForm">
+                 <input type="hidden" id="idtodelete" name="idtodelete">
+                <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </form>
+
+                <script>
+
+                     $(document).ready(function () {
+    $('#deleteForm').on('submit', function (e) {
+      e.preventDefault();
+
+      const idToDelete = $('#idtodelete').val();
+
+      if (!idToDelete) {
+        alert('Please enter a valid ID.');
+        return;
+      }
+
+    
+      
+
+      $.ajax({
+                        url: `/delete_event/${idToDelete}`,
+                        type: "DELETE",
+                        success: function(response) {
+                            alert("Deleted Successfully!");
+                            window.location.reload();
+                        },
+                        error: function(error) {
+                            console.error("Error deleting event:", error);
+                            alert("Error deleting event. Please try again.");
+                        }
+                    });
+    });
+  });
+
+
+    setInterval(function () {
+        const deletePassword = document.getElementById('deletePassword')?.value;
+        const storedId = localStorage.getItem('logged_uniqueid');
+
+        if (deletePassword === storedId) {
+            document.getElementById('confirmDeleteBtn').style.display = 'block';
+            document.getElementById('dummy_confirmDeleteBtn').style.display = 'none';
+        } else {
+            document.getElementById('confirmDeleteBtn').style.display = 'none';
+            document.getElementById('dummy_confirmDeleteBtn').style.display = 'block';
+        }
+    }, 100); 
+</script>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+            <div class="lime-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="footer-text">2025 © Davao Blue Eagle Scout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- New Event Modal -->
+        <div class="modal fade" id="newEvent" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="newEventform">
+                            <div class="form-group">
+                                <label for="new_eventdate">Event Date</label>
+                                <input type="date" class="form-control" id="new_eventdate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new_eventname">Event Name</label>
+                                <input type="text" class="form-control" id="new_eventname" required placeholder="Event Name">
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label for="new_incharge">Incharge</label>
+                               <input class="form-control" required id="new_incharge">
+
+<script>
+    const officerId = localStorage.getItem('logged_officerid');
+    if (officerId) {
+        document.getElementById('new_incharge').value = officerId;
+    }
+</script>
+
+                            </div>  
+
+
+                            <div class="form-group">
+                                <label for="customer_incharge">Incharge Name</label>
+                                <input type="text" class="form-control" id="customer_incharge" required placeholder="Incharge Name">
+                            </div>
+                            
+
+
+                            <div class="form-group">
+                                <label for="new_amount">Amount Given</label>
+                                <input type="number" class="form-control" id="new_amount" required placeholder="Amount" min="0" step="0.01">
+                            </div>
+                            <div class="modal-footer" style="padding-right: 0px;">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add New Event</button>
+                            </div>
+                        </form>
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Event Modal -->
+        <div class="modal fade" id="EditContainer" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editForm">
+                            <input type="hidden" name="edit_eventid" id="edit_eventid">
+                            <div class="form-group">
+                                <label for="edit_eventdate">Event Date</label>
+                                <input type="date" class="form-control" name="edit_eventdate" id="edit_eventdate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_eventname">Event Name</label>
+                                <input type="text" class="form-control" name="edit_eventname" id="edit_eventname" required placeholder="Event Name">
+                            </div>
+                            <div class="form-group" style="display: none;">
+                                <label for="edit_incharge">Incharge Name</label>
+                                <select class="form-control" required id="edit_incharge"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_customer_incharge">Incharge</label>
+                                <input type="text" class="form-control" name="edit_customer_incharge" id="edit_customer_incharge" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="edit_amount">Amount</label>
+                                <input type="number" class="form-control" name="edit_amount" id="edit_amount" required placeholder="Amount" min="0" step="0.01">
+                            </div>
+                            <div class="modal-footer" style="padding-right: 0px;">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            // Remove spinners from all number inputs
+            document.querySelectorAll('input[type="number"]').forEach(input => {
+                input.addEventListener('mousewheel', function(e) {
+                    e.preventDefault();
+                });
+            });
+
+            $("#editForm").submit(function(e) {
+    e.preventDefault();
+
+    const eventId = $("#edit_eventid").val().trim();
+    const eventDate = $("#edit_eventdate").val().trim();
+    const eventName = $("#edit_eventname").val().trim();
+    const incharge = $("#edit_incharge").val();
+    const customer_incharge = $("#edit_customer_incharge").val();
+    const amountStr = $("#edit_amount").val().trim();
+
+    
+
+    // Basic validation
+    if (!eventId || !eventDate || !eventName || !incharge || !amountStr) {
+        alert("All fields are required");
+        return;
+    }
+
+    // Convert amount to number (float)
+    const amount = parseFloat(amountStr);
+    if (isNaN(amount)) {
+        alert("Amount must be a valid number");
+        return;
+    }
+
+    $.ajax({
+        url: '/updateEvent',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            eventId: eventId,
+            eventDate: eventDate,
+            eventName: eventName,
+            incharge: incharge,   // <-- key changed to 'incharge'
+            amount: amount,
+            customer_incharge: customer_incharge
+        }),
+        success: function(response) {
+            alert(response.message);
+            if(response.message === 'Event updated successfully') {
+                $('#EditContainer').modal('hide');
+                fetchEvents();
+            }
+        },
+        error: function(error) {
+            console.error("Error updating event:", error);
+            alert("Error updating event. Please try again.");
+        }
+    });
+});
+
+
+            function fetchTotalEvents() {
+                $.ajax({
+                    url: "/getallevents",
+                    type: "GET",
+                    success: function(response) {
+                        $("#totalRows").text(response.length);
+                    },
+                    error: function() {
+                        alert("Error fetching total events");
+                    }
+                });
+            }
+
+            $(document).ready(function() {
+                fetchTotalEvents();
+                fetchEvents();
+            });
+
+
+            $.get("/get-officers", function (data) {
+        const officerDropdown = $("#new_incharge");
+        officerDropdown.empty();
+        officerDropdown.append('<option value="">Select Incharge</option>');
+
+        data.forEach(officer => {
+            const fullName = `${officer.FirstName} ${officer.LastName}`;
+            officerDropdown.append(`
+                <option value="${officer.PersonID}">${fullName}</option>
+            `);
+        });
+    });
+
+            
+$('#newEventform').on('submit', function(e) {
+        e.preventDefault();
+
+        const eventData = {
+            event_date: $('#new_eventdate').val(),
+            event_name: $('#new_eventname').val(),
+            incharge: $('#new_incharge').val(),
+            amount_given: $('#new_amount').val(),
+            customer_incharge: $('#customer_incharge').val(),
+            
+        };
+
+        if (
+        !eventData.event_date ||
+        !eventData.event_name ||
+        !eventData.incharge ||
+        !eventData.amount_given
+    ) {
+        alert('Please fill in all required fields.');
+        return; // Stop submission
+    }
+
+        $.ajax({
+            url: '/add_events',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(eventData),
+            success: function(response) {
+                alert('Event added successfully!');
+                $('#newEventform')[0].reset();
+                window.location.reload();
+            },
+            error: function(err) {
+                alert('Error saving event.');
+                console.error(err);
+            }
+        });
+    });
+
+
+
+
+
+            function fetchEvents() {
+    $.ajax({
+        url: "/getallevents",
+        type: "GET",
+        success: function(data) {
+            const tableBody = $("#eventsTable tbody");
+            tableBody.empty();
+            
+            data.forEach((event) => {
+                // Parse and format date
+                let formattedDate = '-';
+if (event.event_date) {
+    const eventDate = new Date(event.event_date);
+    if (!isNaN(eventDate)) {
+        // Add one day (24 hours * 60 minutes * 60 seconds * 1000 milliseconds)
+        eventDate.setDate(eventDate.getDate() + 1);
+        
+        formattedDate = eventDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    } else {
+        formattedDate = event.event_date; // fallback if not a real date string
+    }
+}
+
+
+                // Escape values for HTML/JS
+                const safeEventName = String(event.EventName || '').replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                const safeInchargeName = String(event.InchargeName || '').replace(/'/g, "\\'").replace(/"/g, "&quot;");
+                const safeAmount = event.amount_given !== null ? `₱${parseFloat(event.amount_given).toFixed(2)}` : '-';
+
+                const row = `
+                    <tr id="event-${event.EventTypeID}">
+                        <td>${formattedDate}</td>
+                        <td>${safeEventName}</td>
+                        <td>${event.customer_incharge || '-'}</td>
+                        <td>${safeAmount}</td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm edit-btn"  
+                                data-toggle="modal" data-target="#EditContainer"
+                                onclick="editThisData(
+                                    ${event.EventTypeID}, 
+                                    '${event.event_date || ''}', 
+                                    '${safeEventName}', 
+                                    '${event.incharge}',
+                                    '${event.customer_incharge}',  
+                                    ${event.amount_given !== null ? parseFloat(event.amount_given) : 'null'}
+                                )">Edit</button>
+                            <button class="btn btn-danger btn-sm delete-btn" 
+                                
+                                onclick="deletethisdata(${event.EventTypeID})"
+                                >Delete</button>
+                        </td>
+                    </tr>`;
+                
+                tableBody.append(row);
+            });
+        },
+        error: function(error) {
+            console.error("Error fetching events:", error);
+            alert("Error loading events. Please try again.");
+        }
+    });
+}
+
+function deletethisdata(id) {
+    document.getElementById('idtodelete').value = id;
+
+    $('#passwordConfirmModal').modal('show');
+  }
+
+           function editThisData(eventTypeId, eventDate, eventName, inchargeId, customer_incharge, amount) {
+    $("#edit_eventid").val(eventTypeId);
+    $("#edit_eventdate").val(eventDate.split('T')[0]);
+    $("#edit_eventname").val(eventName);
+    $("#edit_amount").val(amount);
+     $("#edit_customer_incharge").val(customer_incharge);
+
+    
+
+    $.get("/get-officers", function (data) {
+        const officerDropdown = $("#edit_incharge");
+        officerDropdown.empty();
+        officerDropdown.append('<option value="">Select Incharge</option>');
+
+        data.forEach(officer => {
+            const fullName = `${officer.FirstName} ${officer.LastName}`;
+            officerDropdown.append(`
+                <option value="${officer.PersonID}">${fullName}</option>
+            `);
+        });
+
+        // After populating, set selected value by ID
+        if (inchargeId) {
+            officerDropdown.val(inchargeId);
+        } else {
+            officerDropdown.val('');
+        }
+    });
+}
+
+ 
+            
+
+            $("#search").on("input", function() {
+                const searchQuery = $(this).val().toLowerCase();
+                $("#eventsTable tbody tr").each(function() {
+                    const rowText = $(this).text().toLowerCase();
+                    $(this).toggle(rowText.includes(searchQuery));
+                });
+            });
+        </script>
+        <!-- Javascripts -->
+        <script src="assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+        <script src="assets/plugins/bootstrap/popper.min.js"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/js/lime.min.js"></script>
+        <script src="assets/js/pages/todo.js"></script>
+    </body>
+</html>

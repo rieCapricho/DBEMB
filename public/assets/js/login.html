@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/images/logo2.PNG">
+    <title>Davao Blue Eagle Scout - Cirva A La Gente Por La Musica</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        if (localStorage.getItem("user")) {
+            window.location.href = "dashboard";
+        }
+    </script>
+
+    </head>
+    <body class="login-page err-500">
+        <div class="container">
+            <div class="login-container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-5 col-sm-9 lfh">
+                        <div class="card login-box">
+                            <div class="card-body">
+                                
+                                <div style="justify-content: center;display: flex;">
+                                    <img src="assets/images/logo.jpg" style="height: 150px; width: 50%;">
+                                </div>
+                                
+                                <div style="text-align: center;">
+                                     <h5 class="card-title" style="margin-bottom: 0px;font-family: 'Inter'">Cirva A La Gente Por La Musica</h5>
+                                <p style="font-size: 10px;">Serving the People through Music</p>
+                                </div>
+
+
+                                <br>
+                                <form id="loginForm">
+        <div class="form-group">
+            <input type="text" class="form-control" id="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" placeholder="Password" required>
+        </div>
+        <br>
+        <div>
+            <a href="register" class="float-left forgot-link">Register </a>
+            <span class="float-left forgot-link" style="color:grey;">&nbsp;here.</span>
+        </div>
+        <button type="submit" class="btn btn-primary float-right m-l-xxs">Sign In</button>
+    </form>
+
+    <script>
+      $(document).ready(function () {
+    $("#loginForm").on("submit", function (e) {
+        e.preventDefault();
+
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+        $.ajax({
+            url: "/login_process",
+            type: "POST",
+            contentType: "application/json", // Ensure proper content type
+            data: JSON.stringify({ username: username, password: password }), // Convert to JSON
+            success: function (response) {
+                if (response.message === "Login successful") {
+                    localStorage.setItem("user", JSON.stringify(response.user));
+                    window.location.href = "dashboard";
+                } else {
+                    alert(response.error);
+                }
+            },
+            error: function (xhr) {
+                alert(xhr.responseJSON ? xhr.responseJSON.error : "There was an error processing your request.");
+            }
+        });
+    });
+});
+
+    </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    </body>
+</html>

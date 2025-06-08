@@ -1,0 +1,13 @@
+KULANG:
+EXPENSES
+ACCOUNT
+USERS
+MONTHLY REPORTS
+DASHBOARD (SUMMARY)
+
+
+TAKE NOTE: 
+BUHAT UNA OG MYSQL DATABASE SA XAMPP 
+DATABASE NAME KAY 'cirva_dabase' tas e import tong cirva_database.sql
+
+tas e on duha ka server(xampp tas node server.js)

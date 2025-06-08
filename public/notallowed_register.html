@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/images/logo2.PNG">
+    <title>Davao Blue Eagle Scout - Cirva A La Gente Por La Musica</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        if (localStorage.getItem("user")) {
+            window.location.href = "dashboard.html";
+        }
+    </script>
+
+</head>
+ <body class="login-page err-500">
+        <div class="container">
+            <div class="login-container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-5 col-sm-9 lfh">
+                        <div class="card login-box">
+                            <div class="card-body">
+                                <h5 class="card-title">Registration</h5>
+                                <form id="signupForm">
+        <div class="form-group">
+            <input type="text" class="form-control" id="firstName" required placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="lastName" required placeholder="Last Name">
+        </div>
+        <div class="form-group">
+            <input type="number" class="form-control" id="contactNumber" required placeholder="Contact Number">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="position" required placeholder="Position">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="userName" required placeholder="Username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" required placeholder="Password">
+        </div>
+        <br>
+        
+        <div>
+            <a href="login" class="float-left forgot-link">Login </a>
+            <span class="float-left forgot-link" style="color:grey;">&nbsp;here.</span>
+        </div>
+        <div style="display: flex; justify-content: right;">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+        
+    </form>
+
+    <script>
+
+        $(document).ready(function () {
+    $("#signupForm").submit(function (e) {
+        e.preventDefault();
+
+        let formData = {
+            firstName: $("#firstName").val(),
+            lastName: $("#lastName").val(),
+            contactNumber: $("#contactNumber").val(),
+            position: $("#position").val(),
+            userName: $("#userName").val(),
+            password: $("#password").val(),
+        };
+
+
+        $.ajax({
+            url: "/process_register",
+            type: "POST",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            success: function (response) {
+                if(response.success == 'Username already exist!'){
+
+                    alert(response.success);
+                    $("#userName").val("");
+                } else {
+                    alert(response.success);
+                    window.location.href = 'login';
+                    console.log(response.success);
+                }
+
+            },
+            error: function (xhr) {
+                console.error("AJAX Error:", xhr.responseText);
+                alert("Error: " + xhr.responseText);
+            }
+        });
+    });
+});
+
+    </script>
+
+</body>
+</html>

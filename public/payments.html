@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/images/logo2.PNG">
+    <title>Davao Blue Eagle Scout - Cirva A La Gente Por La Musica</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+             select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    } 
+
+         </style>
+    <script type="text/javascript">
+    if (!localStorage.getItem("user")) {
+        window.location.href = "login";
+    }    
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const currentUrl = window.location.href;
+    const links = document.querySelectorAll('.accordion-menu a');
+
+    links.forEach(link => {
+        if (currentUrl.includes(link.getAttribute('href'))) {
+            link.classList.add('active');
+        }
+    });
+});
+
+
+</script>
+    
+    </head>
+    <body>
+        <div style="position: fixed;top: 0px;left: 0px;width: 100%;background: #F4F7FC;z-index: 9999;padding: 0px;">
+ <div class="lime-sidebar">
+    <div class="lime-sidebar-inner slimscroll">
+      <ul class="accordion-menu">
+        <li class="sidebar-title">Navigations</li>
+        <li><a href="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+        <li><a href="events"><i class="material-icons">event</i><span>Events</span></a></li>
+        <li><a href="revenues"><i class="material-icons">trending_up</i><span>Revenues</span></a></li>
+        <li><a href="payments"><i class="material-icons">payment</i><span>Payments</span></a></li>
+        <li><a href="expenses"><i class="material-icons">request_quote</i><span>Expenses</span></a></li>
+        <li><a href="officers"><i class="material-icons">people</i><span>Officers</span></a></li>
+        <li><a href="login_history"><i class="material-icons">schedule</i><span>Login History</span></a></li>
+        <li><a href="summary"><i class="material-icons">bar_chart</i>Summary</a></li>
+
+        <li><a href="members"><i class="material-icons">people</i><span>Members</span></a></li>
+      </ul>
+      <ul class="accordion-menu" id="Othersnav">
+        <li class="divider"></li>
+        <li class="sidebar-title">Others</li>
+        <li><a onclick="localStorage.removeItem('user'); window.location.href = 'login';"><i class="material-icons">power_settings_new</i><span>Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 1024px) {
+      #Othersnav {
+        display: block;
+      }
+    }
+    @media (min-width: 1025px) {
+      #Othersnav {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="lime-header" style="padding: 0px;">
+    <nav class="navbar navbar-expand-lg">
+      <section class="material-design-hamburger navigation-toggle">
+        <a href="javascript:void(0)" class="button-collapse material-design-hamburger__icon">
+          <span class="material-design-hamburger__layer"></span>
+        </a>
+      </section>
+      <a class="navbar-brand" href="">
+        <img src="assets/images/logo2.png" style="height: 75px;width: 75px;">
+      </a>
+      <button class="navbar-toggler" type="button"  style="margin-right: 10px" onclick="localStorage.removeItem('user'); window.location.href = 'login';">
+        <i class="material-icons" style="font-size: 20px;">power_settings_new</i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="material-icons">more_vert</i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a class="dropdown-item" onclick="localStorage.removeItem('user'); window.location.href = 'index.html';">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="lime-container">
+            <div class="lime-body" style="margin-top:100px">
+                <div class="container">
+
+
+                        
+                    <div class="row">
+
+                        <div class="col">
+
+                            <div class="card">
+                                <div class="card-body">
+                                      <h5 class="card-title" style="text-align: center;">(<span style="color:#07102F" id="TotalRows">0</span>) Payments record</h5>
+    
+                                    <div class="row">
+<div class="col-12 col-md-12">
+    <div class="todo-sidebar">
+        <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+                <div class="todo-new-task">
+                    <button class="btn btn-primary btn-block" style="height:42px;" data-toggle="modal" data-target="#newAddPayment">Create New Payment</button>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+                <div class="todo-search m-b-lg">
+                        <div class="input-group">
+                            <input type="text" id="search" class="form-control" placeholder="Search Payment">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                        <div class="col-md-12">
+                                              
+                    <div class="row">
+                      
+                        <div class="col-md-6">
+                            <div class="card stat-card">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title">Total Amount Paid</h5>
+                                    <h2 class="float-right" id="TotalAmountPaid" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card stat-card">
+                                <div class="card-body bg-warning">
+                                    <h5 class="card-title">Balance</h5>
+                                    <h2 class="float-right" id="totalBalance" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="card">
+    <div class="card-body" style="padding: 0px;">
+        <div class="table-responsive">
+            <table class="table" id="paymenttabledata">
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Payment Date</th>
+                <th>Mode of Payment</th>
+                <th>Amount Paid</th>
+                <th>Remarks</th>
+                <th>Balance</th>
+                <th>Date Received</th>
+                <th>Officer</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="paymentTableBody"></tbody>
+    </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="passwordConfirmModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+  Are you sure you want to delete this payment? <br>
+  
+  <em>All related data including revenues, expenses, payments, and records will also be deleted.</em>
+</p>
+
+                <div class="form-group">
+                    <label for="deletePassword">To confirm, type your password below</label>
+                    <input type="password" class="form-control" id="deletePassword" placeholder="Password">
+                    <br>
+                    <strong style="color:#FC6060">This action cannot be undone.</strong><br>
+                </div>
+                <div id="passwordError" class="text-danger" style="display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="dummy_confirmDeleteBtn" disabled style="margin-right: -8px;">Delete</button>
+                <form id="deleteForm">
+                 <input type="hidden" id="idtodelete" name="idtodelete">
+                <button type="submit" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </form>
+
+                <script>
+
+                     $(document).ready(function () {
+    $('#deleteForm').on('submit', function (e) {
+      e.preventDefault();
+
+      const idToDelete = $('#idtodelete').val();
+
+      if (!idToDelete) {
+        alert('Please enter a valid ID.');
+        return;
+      }
+
+    
+      $.ajax({
+            url: `/delete-payment/${idToDelete}`,
+            type: "DELETE",
+            success: function (response) {
+                alert("Deleted successfully!");
+          window.location.reload();
+            },
+            error: function (xhr) {
+                alert(xhr.responseJSON?.error || "Error deleting payment.");
+            }
+        });
+
+
+
+    });
+  });
+
+
+    setInterval(function () {
+        const deletePassword = document.getElementById('deletePassword')?.value;
+        const storedId = localStorage.getItem('logged_uniqueid');
+
+        if (deletePassword === storedId) {
+            document.getElementById('confirmDeleteBtn').style.display = 'block';
+            document.getElementById('dummy_confirmDeleteBtn').style.display = 'none';
+        } else {
+            document.getElementById('confirmDeleteBtn').style.display = 'none';
+            document.getElementById('dummy_confirmDeleteBtn').style.display = 'block';
+        }
+    }, 100); 
+</script>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+            <div class="lime-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="footer-text">2025 © Davao Blue Eagle Scout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+        
+
+        <div class="modal fade" id="newAddPayment"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+                                                        <div class="modal-dialog" role="document" >
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">New Payment</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <i class="material-icons">close</i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form id="newPaymentForm" enctype="multipart/form-data">
+
+
+     <div class="form-group">
+        <label>Proof of Payment</label>
+        <input type="file" name="receipt" class="form-control" required>
+    </div>                                                                   
+    <div class="form-group">  
+          <label>Event</label>                                
+            <select class="form-control" id="new_eventtypeid" required>
+            <!-- Options will be dynamically populated -->
+            </select>
+    </div>
+
+    <input name="revenueID" type="hidden" id="revenueID" class="form-control" required>
+
+    <div class="form-group">
+        <label>Payment Date</label>
+        <input type="date" class="form-control" id="new_paymentdate" name="paymentDate" required>
+    </div>
+
+    <div class="form-group">
+        <label>Mode of Payment</label>
+
+        <select class="form-control" id="new_modpayment" name="modeOfPayment" required>
+           
+        </select>
+    </div>
+
+    <div class="form-group">
+        <input type="number" placeholder="Amount Paid" class="form-control" id="new_amountPaid" name="amountPaid" required min="0" step="0.01">
+    </div>
+
+    <div class="form-group">
+        <label>Remarks</label>
+    <select class="form-control" id="new_remarks" name="new_remarks" required></select>
+    </div>
+
+    <div class="form-group">
+        <input type="number" placeholder="Balance" class="form-control" id="new_balance" name="balance" min="0" step="0.01">
+    </div>
+
+    <div class="form-group">
+        <label>Date Received</label>
+        <input type="date" class="form-control" id="new_dateReceived" name="dateReceived" required>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="hidden" id="new_officerId" name="officerId" required>
+           <script>document.getElementById("new_officerId").value = localStorage.logged_officerid || '';</script>
+   
+    </div>
+
+    <div class="modal-footer" style="padding-right: 0px;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add New Payment</button>
+    </div>
+</form>
+
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+    <div class="modal fade" id="editUsers" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+    
+    <input type="hidden" id="edit_paymentID" name="paymentID">
+    <input type="hidden" id="edit_revenueID" name="revenueID">
+
+     <div class="form-group">
+        <label>Proof of Payment</label>
+        <input type="file" name="receipt" class="form-control" required>
+    </div>  
+
+    <div class="form-group">
+        <label>Payment Date</label>
+        <input type="date" class="form-control" id="edit_paymentDate" name="paymentDate" required>
+    </div>
+       <div class="form-group">  
+          <label>Event</label>                                
+            <select class="form-control" id="edit_eventtypeid" required>
+            <!-- Options will be dynamically populated -->
+            </select>
+    </div>
+
+    <div class="form-group">
+        <label>Mode of Payment</label>
+        <select class="form-control" id="edit_modePayment" name="modeOfPayment" required>
+            <option value="Cash">Cash</option>
+            <option value="Gcash">Gcash</option>
+            <option value="Bank">Bank</option>
+        </select>
+    </div>
+
+   
+
+   
+
+    <div class="form-group">
+        <label>Amount Paid</label>
+        <input type="number" class="form-control" id="edit_amountPaid" name="amountPaid" required min="0" step="0.01">
+    </div>
+
+    <div class="form-group">
+        <label>Remarks</label>
+        <select class="form-control" id="edit_remarks" name="remarks" required>
+            <option value="Full">Full</option>
+            <option value="Partial">Partial</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Balance</label>
+        <input type="number" class="form-control" id="edit_balance" name="balance" min="0" step="0.01">
+    </div>
+
+    <div class="form-group">
+        <label>Date Received</label>
+        <input type="date" class="form-control" id="edit_dateReceived" name="dateReceived" required>
+    </div>
+
+    <div class="form-group" style="display: none;">
+        <label>Officer</label>
+        <input class="form-control" id="edit_officerId" name="officerId" required>
+            <script>document.getElementById("edit_officerId").value = localStorage.logged_officerid || '';</script>
+   
+    </div>
+
+    <div class="modal-footer" style="padding-right: 0px;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
+    </div>
+</form>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    
+    <script>
+function editThisData(
+        paymentID,
+        eventName,
+        eventDate,
+        paymentDate,
+        modeOfPayment,
+        amountPaid,
+        remarks,
+        balance,
+        dateReceived,
+        officerFirstName,
+        officerLastName,
+        EventTypeID,
+        RevenueID
+    ) {
+
+        document.getElementById('edit_revenueID').value = RevenueID
+
+
+
+         $.ajax({
+        url: "/getalleventsinrevenue",
+        type: "GET",
+        success: function (response) {
+            let eventSelect = $("#edit_eventtypeid");   
+            
+
+            const event = response[0]; 
+
+             let date = new Date(event.event_date);
+date.setDate(date.getDate() + 1); // Add 1 day
+
+let formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+});
+
+
+
+            eventSelect.append(`
+                <option value="${EventTypeID}" selected hidden data-revenueid="${event.RevenueID}">
+                    ${eventName} (${formattedDate})
+                </option>
+            `);
+
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize to start of day
+
+            response.forEach(event => {
+                if (event.event_date) {
+                    const eventDate = new Date(event.event_date);
+                    eventDate.setHours(0, 0, 0, 0); // Normalize for comparison
+
+                        let date = new Date(row.event_date);
+date.setDate(date.getDate() + 1); // Add 1 day
+
+let formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+});
+
+                         eventSelect.append(`<option data-revenueid="${event.RevenueID}" value="${event.EventTypeID}" >${event.EventName}  (${formattedDate})</option>`);
+                    
+                }
+            });
+        },
+        error: function () {
+            alert("Error fetching events");
+        }
+    });
+
+
+
+
+
+
+        
+
+        // Fill form fields
+        function toDateInputFormat(dateStr) {
+    const date = new Date(dateStr);
+    if (isNaN(date)) return "";
+    return date.toISOString().split('T')[0];
+}
+
+
+        document.getElementById('edit_paymentID').value = paymentID;
+        document.getElementById('edit_paymentDate').value = toDateInputFormat(paymentDate);
+        document.getElementById('edit_modePayment').value = modeOfPayment;
+        document.getElementById('edit_amountPaid').value = amountPaid;
+        document.getElementById('edit_remarks').value = remarks;
+        document.getElementById('edit_balance').value = balance;
+        document.getElementById('edit_dateReceived').value = toDateInputFormat(dateReceived);
+        
+    $.get("/get-officers", function (data) {
+        const officerDropdown = $("#edit_officerId");
+        officerDropdown.empty();
+        officerDropdown.append('<option value="">Select Officer</option>');
+
+        data.forEach(officer => {
+            const fullName = `${officer.FirstName} ${officer.LastName}`;
+            const selected = fullName === officerName ? "selected" : "";
+            officerDropdown.append(`
+                <option value="${officer.PersonID}" ${selected}>${fullName}</option>
+            `);
+        });
+    });
+
+    $("#editUsers").modal("show");
+}
+
+function formatDate2(dateString) {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+    return date.toISOString().split("T")[0];
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+        return dateString;
+    }
+    return date.toISOString().split("T")[0];
+}
+
+
+$('#saveChangesBtn').click(function(e) {
+  e.preventDefault();
+
+   const form = document.getElementById('editForm');
+  const formData = new FormData(form); 
+
+  $.ajax({
+    url: '/update-payment',
+    type: 'POST',
+    data: formData,
+    processData: false, // important for FormData
+    contentType: false, // important for FormData
+    success: function(response) {
+      alert(response.message);
+      // You can also close modal or reload table etc.
+      window.location.reload();
+    },
+    error: function(xhr) {
+      alert(xhr.responseJSON?.error || 'An error occurred');
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ $(document).ready(function () {
+        $.ajax({
+            url: "/get-payment-modes",
+            method: "GET",
+            dataType: "json",
+            success: function (modes) {
+                let paymentSelect = $("#new_modpayment");
+                modes.forEach(mode => {
+                    paymentSelect.append(`<option value="${mode}">${mode}</option>`);
+                });
+            },
+            error: function () {
+                alert("Error fetching payment modes.");
+            },
+        });
+    });
+ $(document).ready(function () {
+        $.ajax({
+            url: "/get-remarks",
+            method: "GET",
+            dataType: "json",
+            success: function (remarks) {
+                let remarksSelect = $("#new_remarks");
+                remarks.forEach(remark => {
+                    remarksSelect.append(`<option value="${remark}">${remark}</option>`);
+                });
+            },
+            error: function () {
+                alert("Error fetching remarks.");
+            },
+        });
+    });
+
+$(document).ready(function () {
+    $("#newPaymentForm").submit(function (e) {
+        e.preventDefault();
+
+        let form = document.getElementById("newPaymentForm");
+        let formData = new FormData(form);
+
+        $.ajax({
+            url: "/add-payment", // Replace with your actual backend endpoint
+            method: "POST",
+            data: formData,
+            processData: false, // Required for FormData
+            contentType: false, // Required for FormData
+            success: function (response) {
+                alert(response.message || "Payment added successfully.");
+                $("#newPaymentForm")[0].reset();
+                window.location.reload(); // Optional: Refresh the page
+            },
+            error: function (xhr) {
+                alert("Error adding payment: " + (xhr.responseJSON?.message || xhr.statusText));
+            },
+        });
+    });
+});
+
+
+
+
+
+
+
+
+//         $(document).ready(function () {
+//     $.ajax({
+//         url: "/get-officers",
+//         method: "GET",
+//         dataType: "json",
+//         success: function (data) {
+//             let dropdown = $("#new_officerId");
+//             dropdown.empty().append('<option value="">Select Officer</option>');
+
+//             data.forEach((officer) => {
+//                 dropdown.append(
+//                     `<option value="${officer.PersonID}">${officer.FirstName} ${officer.LastName}</option>`
+//                 );
+//             });
+//         },
+//         error: function () {
+//             console.error("Error fetching officers.");
+//         },
+//     });
+// });
+
+
+$(document).ready(function() {
+    $('#new_eventtypeid').val('');
+
+    fetch('/allpayments')
+        .then(response => response.json())
+        .then(data => {
+            if (data.length === 0) {
+                const tableBody = $("#paymentTableBody");
+                const noDataMessage = `<p>No data available.</p>`;
+                tableBody.append(noDataMessage);
+                return;
+            }
+
+            const theEventName = data[0].EventName;
+            const theEventDate = new Date(data[0].event_date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+
+            const tableBody = $("#paymentTableBody");
+            tableBody.empty();
+
+            let totalRows = 0;
+            let totalAmountPaid = 0; 
+            let totalBalance = 0;
+
+            data.forEach(payment => {
+                const paymentDate = new Date(payment.PaymentDate);
+                const eventtDate = new Date(payment.event_date);
+                const formattedPaymentDate = paymentDate.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+eventtDate.setDate(eventtDate.getDate() + 1); // Add 1 day
+
+let formattedeventdate = eventtDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+});
+
+                const dateReceived = payment.DateReceived ? new Date(payment.DateReceived) : null;
+                const formattedDateReceived = dateReceived ? dateReceived.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                }) : "N/A";
+
+                const row = `
+                    <tr>    
+                        <td>${payment.EventName}<br>${formattedeventdate}</td>
+                        <td>${formattedPaymentDate}</td>
+                        <td>${payment.ModeOfPayment}</td>
+                        <td>${payment.AmountPaid.toFixed(2)}</td>
+                        <td>${payment.Remarks}</td>
+                        <td>${payment.Balance ? payment.Balance.toFixed(2) : "0.00"}</td>
+                        <td>${formattedDateReceived}</td>
+                        <td>${payment.OfficerFirstName || ""} ${payment.OfficerLastName || ""}</td>
+                        <td>
+                            <button style="margin:3px;margin-top: 4px" class="btn btn-primary btn-sm" onclick="window.open('${payment.receipt_src.replace(/uploads[\\/]{0,1}/, 'uploads/')}', '_blank')">&nbsp;View Receipt&nbsp;</button>
+                            <button style="margin:3px;margin-top: 4px" class="btn btn-secondary btn-sm edit-btn" data-payment-id="${payment.PaymentID}" data-toggle="modal" data-target="#editUsers" 
+                            onclick="editThisData(
+                    '${payment.PaymentID}',
+                    '${payment.EventName}',
+                    '${eventtDate}',
+                    '${paymentDate}',
+                    '${payment.ModeOfPayment}',
+                    ${payment.AmountPaid.toFixed(2)},
+                    '${payment.Remarks}',
+                    ${payment.Balance ? payment.Balance.toFixed(2) : 0.00},
+                    '${formattedDateReceived}',
+                    '${payment.OfficerFirstName || ""}',
+                    '${payment.OfficerLastName || ""}',
+                    '${payment.EventTypeID || ""}',
+                    '${payment.RevenueID || ""}'
+
+                    
+                )"
+                >Edit</button>
+                            <button style="margin:3px" class="btn btn-danger btn-sm delete-btn" data-payment-id="${payment.PaymentID}">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.append(row);
+                totalRows++; 
+                totalAmountPaid += payment.AmountPaid;
+                totalBalance += payment.Balance;
+            });
+
+            $('#TheEventName').text(theEventName);
+            $('#TheEventDate').text(theEventDate);
+            $('#TotalRows').text(totalRows);
+            $('#TotalAmountPaid').text(totalAmountPaid.toFixed(2));
+            $('#totalBalance').text(totalBalance.toFixed(2));
+        })
+        .catch(error => console.error("Error fetching payments:", error));
+});
+
+
+
+$(document).on("click", ".delete-btn", function () {
+    const paymentID = $(this).data("payment-id");
+    
+      document.getElementById('idtodelete').value = paymentID;
+
+    $('#passwordConfirmModal').modal('show');
+});
+
+
+
+
+    document.getElementById('search').addEventListener('input', function() {
+    let searchQuery = this.value.toLowerCase();
+    let table = document.getElementById('paymenttabledata');
+    let rows = table.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        let row = rows[i];
+        let cells = row.getElementsByTagName('td');
+        
+        let matches = false;
+        for (let j = 0; j < cells.length; j++) {
+            let cell = cells[j];
+            if (cell) {
+                let cellText = cell.textContent || cell.innerText;
+                if (cellText.toLowerCase().includes(searchQuery)) {
+                    matches = true;
+                    break; 
+                }
+            }
+        }
+        
+        if (matches) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    }
+});
+
+
+function fetchEvents() {
+    $.ajax({
+        url: "/getalleventsinrevenue",
+        type: "GET",
+        success: function (response) {
+            let eventSelect = $("#new_eventtypeid");
+            eventSelect.empty();
+            eventSelect.append('<option value="" selected hidden>Select Event</option>');
+
+            const filteredSortedEvents = response
+                .filter(event => {
+                    if (!event.event_date) return false;
+                    const eventDate = new Date(event.event_date);
+                    eventDate.setHours(0, 0, 0, 0);
+                    return true; // Include all events with a valid date
+                })
+                .sort((a, b) => a.EventName.localeCompare(b.EventName));
+
+            filteredSortedEvents.forEach(event => {
+            
+
+                 let date = new Date(event.event_date);
+date.setDate(date.getDate() + 1); // Add 1 day
+
+let formattedDate = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+});
+
+                eventSelect.append(
+                    `<option value="${event.EventTypeID}" data-revenueid="${event.RevenueID}">
+                        ${event.EventName} (${formattedDate})
+                    </option>`
+                );
+            });
+        },
+        error: function () {
+            alert("Error fetching events");
+        }
+    });
+}
+
+// Alert RevenueID when a selection is made
+$('#new_eventtypeid').on('change', function () {
+    const revenueID = $(this).find('option:selected').data('revenueid');
+  
+
+    document.getElementById('revenueID').value = revenueID
+
+    
+});
+
+
+$('#edit_eventtypeid').on('change', function () {
+    const revenueID = $(this).find('option:selected').data('revenueid');
+  
+
+    document.getElementById('edit_revenueID').value = revenueID
+
+    
+});
+
+
+        fetchEvents();
+
+    </script>
+        <!-- Javascripts -->
+        <script src="assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+        <script src="assets/plugins/bootstrap/popper.min.js"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/js/lime.min.js"></script>
+        <script src="assets/js/pages/todo.js"></script>
+    </body>
+</html>

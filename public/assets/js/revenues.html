@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="assets/images/logo2.PNG">
+    <title>Davao Blue Eagle Scout - Cirva A La Gente Por La Musica</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/plugins/font-awesome/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <style>
+             select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    } 
+
+         </style>
+    <script type="text/javascript">
+    if (!localStorage.getItem("user")) {
+        window.location.href = "login";
+    }    
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const currentUrl = window.location.href;
+    const links = document.querySelectorAll('.accordion-menu a');
+
+    links.forEach(link => {
+        if (currentUrl.includes(link.getAttribute('href'))) {
+            link.classList.add('active');
+        }
+    });
+});
+
+
+</script>
+    
+    </head>
+   <body>
+        <div style="position: fixed;top: 0px;left: 0px;width: 100%;background: #F4F7FC;z-index: 9999;padding: 0px;">
+  <div class="lime-sidebar">
+    <div class="lime-sidebar-inner slimscroll">
+      <ul class="accordion-menu">
+        <li class="sidebar-title">Navigations</li>
+        <li><a href="dashboard"><i class="material-icons">dashboard</i><span>Dashboard</span></a></li>
+        <li><a href="events"><i class="material-icons">event</i><span>Events</span></a></li>
+        
+        <li><a href="revenues"><i class="material-icons">trending_up</i><span>Revenues</span></a></li>
+        <li><a href="payments"><i class="material-icons">payment</i><span>Payments</span></a></li>
+        <li><a href="expenses"><i class="material-icons">request_quote</i><span>Expenses</span></a></li>
+        <li><a href="attendance"><i class="material-icons">schedule</i><span>Attendance</span></a></li>
+        <li><a href="users"><i class="material-icons">people</i><span>Users</span></a></li>
+      </ul>
+      <ul class="accordion-menu" id="Othersnav">
+        <li class="divider"></li>
+        <li class="sidebar-title">Others</li>
+        <li><a href="dashboard"><i class="material-icons">settings</i><span>Account</span></a></li>
+        <li><a onclick="localStorage.removeItem('user'); window.location.href = 'login';"><i class="material-icons">power_settings_new</i><span>Logout</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 1024px) {
+      #Othersnav {
+        display: block;
+      }
+    }
+    @media (min-width: 1025px) {
+      #Othersnav {
+        display: none;
+      }
+    }
+  </style>
+
+  <div class="lime-header" style="padding: 0px;">
+    <nav class="navbar navbar-expand-lg">
+      <section class="material-design-hamburger navigation-toggle">
+        <a href="javascript:void(0)" class="button-collapse material-design-hamburger__icon">
+          <span class="material-design-hamburger__layer"></span>
+        </a>
+      </section>
+      <a class="navbar-brand" href="">
+        <img src="assets/images/logo2.png" style="height: 75px;width: 75px;">
+      </a>
+      <button class="navbar-toggler" type="button"  style="margin-right: 10px" onclick="localStorage.removeItem('user'); window.location.href = 'login';">
+        <i class="material-icons" style="font-size: 20px;">power_settings_new</i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="material-icons">more_vert</i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a class="dropdown-item" href="#">Account</a></li>
+              <li><a class="dropdown-item" onclick="localStorage.removeItem('user'); window.location.href = 'login';">Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+        <div class="lime-container">
+            <div class="lime-body" style="margin-top:100px">
+                <div class="container">
+
+
+                        
+                    <div class="row">
+
+                        <div class="col">
+
+                            <div class="card">
+                                <div class="card-body">
+                                      <h5 class="card-title" style="text-align: center;">(<span style="color:#07102F" id="totalRows"></span>) Revenues</h5>
+    
+                                    <div class="row">
+<div class="col-12 col-md-12">
+    <div class="todo-sidebar">
+        <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+                <div class="todo-new-task">
+                    <button class="btn btn-primary btn-block" style="height:42px;" data-toggle="modal" data-target="#newUsers">Create New Revenue</button>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
+                <div class="todo-search m-b-lg">
+                        <div class="input-group">
+                            <input type="text" id="search" class="form-control" placeholder="Search Revenue">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                        <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card stat-card">
+                                <div class="card-body bg-warning">
+                                    <h5 class="card-title">Total Amount Given</h5>
+                                    <h2 class="float-right" id="TotalAmountGiven" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card stat-card">
+                                <div class="card-body bg-info">
+                                    <h5 class="card-title">Total Band Shares</h5>
+                                    <h2 class="float-right" id="TotalBandShares" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card stat-card">
+                                <div class="card-body bg-success">
+                                    <h5 class="card-title">Total All Fees</h5>
+                                    <h2 class="float-right" id="TotalAllFee" style="color:white;"></h2>
+                                    <p style="color:white;font-weight: bold;">PHP</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+<div class="card">
+    <div class="card-body" style="padding: 0px;">
+        <div class="table-responsive">
+         <table class="table" id="revenueTable">
+    <thead>
+        <tr>
+            <th scope="col">Event Date</th>
+            <th scope="col">Event Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Amount Given</th>
+            <th scope="col">Band Share</th>
+            <th scope="col">Members Talent Fee</th>
+            <th scope="col">Total Fee</th> <!-- New Column -->
+            <th scope="col">Incharge</th>
+            <th scope="col">Keeper</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="lime-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="footer-text">2025 © Davao Blue Eagle Scout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+        
+
+        <div class="modal fade" id="newUsers"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+                                                        <div class="modal-dialog" role="document" >
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">New Revenue</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <i class="material-icons">close</i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                   <form id="newdata">
+    <div class="form-group">
+
+        <select class="form-control" required id="new_eventtypeid">
+            <option value="" selected hidden>Select Event</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="new_eventdate">Event Date</label>
+        <input type="date" class="form-control" id="new_eventdate" required>
+    </div>
+
+    <div class="form-group">
+        <input type="text" class="form-control" id="new_description" placeholder="Description">
+    </div>
+
+    <div class="form-group">
+        <select class="form-control" required id="new_inchargeid">
+        </select>
+    </div>
+
+    <div class="form-group">
+        <input type="number" step="0.01" class="form-control" id="new_amountgiven" placeholder="Amount Given" required>
+    </div>
+
+    <div class="form-group">
+        <input type="number" step="0.01" class="form-control" id="new_bandshare" placeholder="Band Share">
+    </div>
+
+    <div class="form-group">
+        <input type="number" step="0.01" class="form-control" id="new_memberstalentfee" placeholder="Members Talent Fee">
+    </div>
+
+    <div class="form-group">
+        <select class="form-control" required id="new_keeperid">
+        </select>
+    </div>
+
+    <div class="modal-footer" style="padding-right: 0px;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add New Revenue</button>
+    </div>
+</form>
+
+
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+    <div class="modal fade" id="editContainer" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999999;background: rgba(0, 0, 0, 0.5);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Revenue</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+
+    <input type="hidden" class="form-control" id="edit_revenueid" required>
+
+    <div class="form-group">
+        <label for="edit_eventdate">Event Date</label>
+        <input type="date" class="form-control" id="edit_eventdate" required>
+    </div>
+
+    <div class="form-group">
+        <label for="edit_eventtypeid">Event Name</label>
+        <select class="form-control" required id="edit_eventtypeid">
+            <option value="" selected hidden>Select Event</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="edit_description">Description</label>
+        <input type="text" class="form-control" id="edit_description" placeholder="Description">
+    </div>
+
+    <div class="form-group">
+        <label for="edit_inchargeid">In Charge</label>
+        <select class="form-control" required id="edit_inchargeid">
+            <!-- Options will be populated dynamically -->
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="edit_amountgiven">Amount Given</label>
+        <input type="number" step="0.01" class="form-control" id="edit_amountgiven" placeholder="Amount Given" required>
+    </div>
+
+    <div class="form-group">
+        <label for="edit_bandshare">Band Share</label>
+        <input type="number" step="0.01" class="form-control" id="edit_bandshare" placeholder="Band Share">
+    </div>
+
+    <div class="form-group">
+        <label for="edit_memberstalentfee">Members Talent Fee</label>
+        <input type="number" step="0.01" class="form-control" id="edit_memberstalentfee" placeholder="Members Talent Fee">
+    </div>
+
+    <div class="form-group">
+        <label for="edit_keeperid">Keeper</label>
+        <select class="form-control" required id="edit_keeperid">
+            <!-- Options will be populated dynamically -->
+        </select>
+    </div>
+
+    <div class="modal-footer" style="padding-right: 0px;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+
+</form>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <script type="text/javascript">
+
+$("#new_eventdate").attr("max", new Date().toISOString().split("T")[0]);
+$("#edit_eventdate").attr("max", new Date().toISOString().split("T")[0]);
+
+    document.getElementById('search').addEventListener('input', function() {
+    let searchQuery = this.value.toLowerCase();
+    let table = document.getElementById('revenueTable');
+    let rows = table.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        let row = rows[i];
+        let cells = row.getElementsByTagName('td');
+        
+        let matches = false;
+        for (let j = 0; j < cells.length; j++) {
+            let cell = cells[j];
+            if (cell) {
+                let cellText = cell.textContent || cell.innerText;
+                if (cellText.toLowerCase().includes(searchQuery)) {
+                    matches = true;
+                    break; 
+                }
+            }
+        }
+        
+        if (matches) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    }
+});
+
+            function fetchEvents() {
+            $.ajax({
+                url: "/allevents",
+                type: "GET",
+                success: function (response) {
+                    let eventSelect = $("#new_eventtypeid");
+                    eventSelect.empty();
+                    eventSelect.append('<option value="" selected hidden>Select Event</option>');
+                    response.forEach(event => {
+                        eventSelect.append(`<option value="${event.EventTypeID}">${event.EventName}</option>`);
+                    });
+                },
+                error: function () {
+                    alert("Error fetching events");
+                }
+            });
+        }
+        fetchEvents();
+
+
+
+
+
+         // FOR EDIT
+        $.get("/get-officers", function (data) {
+        const officerDropdown = $("#new_inchargeid");
+        officerDropdown.empty();
+        officerDropdown.append('<option value="">Select Incharge</option>');
+
+        data.forEach(officer => {
+            const fullName = `${officer.FirstName} ${officer.LastName}`;
+            officerDropdown.append(`
+                <option value="${officer.PersonID}">${fullName}</option>
+            `);
+        });
+    });
+
+        $.get("/get-officers", function (data) {
+        const officerDropdown = $("#new_keeperid");
+        officerDropdown.empty();
+        officerDropdown.append('<option value="">Select Keeper</option>');
+
+        data.forEach(officer => {
+            const fullName = `${officer.FirstName} ${officer.LastName}`;
+            officerDropdown.append(`
+                <option value="${officer.PersonID}">${fullName}</option>
+            `);
+        });
+    });
+
+
+$('#newdata').submit(function(event) {
+    event.preventDefault();
+
+    const formData = {
+        eventDate: $('#new_eventdate').val(),
+        eventTypeID: $('#new_eventtypeid').val(),
+        description: $('#new_description').val(),
+        inchargeID: $('#new_inchargeid').val(),
+        amountGiven: $('#new_amountgiven').val(),
+        bandShare: $('#new_bandshare').val(),
+        membersTalentFee: $('#new_memberstalentfee').val(),
+        keeperID: $('#new_keeperid').val()
+    };
+
+    for (const key in formData) {
+        if (formData[key] === "" || formData[key] === null) {
+            alert("All required fields must be filled.");
+            return;
+        }
+    }
+
+    $.ajax({
+        url: '/addRevenue',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(formData),
+        success: function(response) {
+            alert(response.message);
+            window.location.reload();
+        },
+        error: function(xhr, status, error) {
+            const errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'An error occurred';
+            alert(errorMessage);
+        }
+    });
+});
+
+
+        
+
+
+    //     // FOR EDIT
+    //     $.get("/get-officers", function (data) {
+    //     const officerDropdown = $("#new_InchargeID");
+    //     officerDropdown.empty();
+    //     officerDropdown.append('<option value="">Select Officer</option>');
+
+    //     data.forEach(officer => {
+    //         const fullName = `${officer.FirstName} ${officer.LastName}`;
+    //         const selected = fullName === officerName ? "selected" : "";
+    //         officerDropdown.append(`
+    //             <option value="${officer.PersonID}" ${selected}>${fullName}</option>
+    //         `);
+    //     });
+    // });
+
+
+
+
+
+
+
+
+
+
+          $(document).ready(function() {
+    fetch("/allrevenues")
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = $("#revenueTable tbody");
+            tableBody.empty();
+
+            let totalAmountGiven = 0;
+            let totalBandShares = 0;
+            let totalAllFee = 0;
+            let totalRowsCount = 0;
+
+            data.forEach(revenue => {
+                let formattedDate = new Date(revenue.EventDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                });
+
+                let numberOfMembers = revenue.NumberOfMembers || 0;
+                let membersTalentFee = parseFloat(revenue.MembersTalentFee) || 0;
+                let totalFee = numberOfMembers * membersTalentFee;
+
+                totalAmountGiven += parseFloat(revenue.AmountGiven || 0);
+                totalBandShares += parseFloat(revenue.BandShare || 0);
+                totalAllFee += totalFee;
+                totalRowsCount++;
+
+                const row = `
+                    <tr>
+                        <td>${formattedDate}</td>
+                        <td>${revenue.EventName || "N/A"}</td>
+                        <td>${revenue.Description || "N/A"}</td>
+                        <td>${revenue.AmountGiven.toFixed(2)}</td>
+                        <td>${revenue.BandShare.toFixed(2) || "0.00"}</td>
+                        <td>${membersTalentFee.toFixed(2)}</td>
+                        <td>${totalFee.toFixed(2)} <br><br><span style="font-size:10px;">${numberOfMembers} members</span></td>
+
+                        <td>${revenue.InchargeFirstName || ""} ${revenue.InchargeLastName || ""}</td>
+                        <td>${revenue.KeeperFirstName || ""} ${revenue.KeeperLastName || ""}</td>
+                        
+                        <td>
+            <button type="button" class="btn btn-info btn-sm view-btn" data-id="${revenue.RevenueID}">Payment</button>
+            <button style="margin:3px;margin-top: 4px" class="btn btn-secondary btn-sm edit-btn" 
+            data-toggle="modal" data-target="#editContainer"
+                onclick="editthisdata('${revenue.RevenueID}','${formattedDate}', '${revenue.EventName}', '${revenue.Description}', 
+                ${revenue.AmountGiven.toFixed(2)}, ${revenue.BandShare.toFixed(2)}, ${membersTalentFee.toFixed(2)}, 
+                ${totalFee.toFixed(2)}, ${numberOfMembers}, '${revenue.InchargeFirstName}', '${revenue.InchargeLastName}', 
+                '${revenue.KeeperFirstName}', '${revenue.KeeperLastName}', ${revenue.RevenueID})">Edit</button>
+            <button style="margin:3px" class="btn btn-danger btn-sm delete-btn" data-id="${revenue.RevenueID}">Delete</button>
+        </td>
+                    </tr>
+                `;
+                tableBody.append(row);
+            });
+
+            $(".view-btn").click(function() {
+                const revenueId = $(this).data("id");
+                window.location.href = `view_payment.html?revenueId=${revenueId}`;
+            });
+
+            $(".delete-btn").click(function() {
+                const revenueId = $(this).data("id");
+                if (confirm("Are you sure you want to delete this revenue? This will also delete the related payment data.")) {
+                    $.ajax({
+                        url: `/deleteRevenue/${revenueId}`,
+                        type: "DELETE",
+                        success: function(response) {
+                            if (response.success) {
+                                alert(response.message);
+
+                                window.location.reload()
+                            } else {
+                                alert("Error deleting revenue.");
+                            }
+
+                        },
+                        error: function() {
+                            alert("Error deleting revenue.");
+                        }
+                    });
+                }
+            });
+
+            $("#TotalAmountGiven").text(totalAmountGiven.toFixed(2));
+            $("#TotalBandShares").text(totalBandShares.toFixed(2));
+            $("#TotalAllFee").text(totalAllFee.toFixed(2));
+            $("#totalRows").text(totalRowsCount);
+        })
+        .catch(error => console.error("Error fetching revenues:", error));
+});
+
+
+
+
+function editthisdata(revenueID, formattedDate, eventName, description, amountGiven, bandShare, membersTalentFee, totalFee, numberOfMembers, inchargeFirstName, inchargeLastName, keeperFirstName, keeperLastName) {
+
+    const dateObj = new Date(formattedDate);
+if (!isNaN(dateObj)) {
+    formattedDate = dateObj.toISOString().split('T')[0];
+} else {
+    formattedDate = ""; 
+}
+
+    document.getElementById('edit_eventdate').value = formattedDate || "";
+    document.getElementById('edit_description').value = description || "";
+    document.getElementById('edit_amountgiven').value = amountGiven.toFixed(2) || "";
+    document.getElementById('edit_bandshare').value = bandShare.toFixed(2) || "";
+    document.getElementById('edit_memberstalentfee').value = membersTalentFee.toFixed(2) || "";
+    document.getElementById('edit_revenueid').value = revenueID || "";
+
+
+    $.ajax({
+        url: "/allevents",
+        type: "GET",
+        success: function (response) {
+            let eventSelect = $("#edit_eventtypeid");
+            eventSelect.empty();
+            eventSelect.append('<option value="" selected hidden>Select Event</option>');
+
+            response.forEach(event => {
+                const selected = event.EventName == eventName ? 'selected' : '';
+                eventSelect.append(`<option value="${event.EventTypeID}" ${selected}>${event.EventName}</option>`);
+            });
+        },
+        error: function () {
+            alert("Error fetching events");
+        }
+    });
+
+    $.get("/get-officers", function (data) {
+    const officerDropdown = $("#edit_inchargeid");
+    officerDropdown.empty();
+    officerDropdown.append('<option value="">Select Incharge</option>');
+
+    data.forEach(officer => {
+        const fullName = `${officer.FirstName} ${officer.LastName}`; 
+        const selected = (officer.FirstName === inchargeFirstName && officer.LastName === inchargeLastName) ? "selected" : ""; // Fix the selected condition
+        officerDropdown.append(`
+            <option value="${officer.PersonID}" ${selected}>${fullName}</option>
+        `);
+    });
+});
+
+
+    $.get("/get-officers", function (data) {
+    const officerDropdown = $("#edit_keeperid");
+    officerDropdown.empty();
+    officerDropdown.append('<option value="">Select Keeper</option>');
+
+    data.forEach(officer => {
+        const fullName = `${officer.FirstName} ${officer.LastName}`; 
+        const selected = (officer.FirstName === keeperFirstName && officer.LastName === keeperLastName) ? "selected" : ""; // Fix the selected condition
+        officerDropdown.append(`
+            <option value="${officer.PersonID}" ${selected}>${fullName}</option>
+        `);
+    });
+});
+
+
+
+
+}
+
+
+
+
+
+ $("#editForm").submit(function(e) {
+        e.preventDefault();
+
+        const updatedData = {
+            RevenueID: $("#edit_revenueid").val(),
+            EventDate: $("#edit_eventdate").val(),
+            EventTypeID: $("#edit_eventtypeid").val(),
+            Description: $("#edit_description").val(),
+            InchargeID: $("#edit_inchargeid").val(),
+            AmountGiven: $("#edit_amountgiven").val(),
+            BandShare: $("#edit_bandshare").val(),
+            MembersTalentFee: $("#edit_memberstalentfee").val(),
+            KeeperID: $("#edit_keeperid").val()
+        };
+
+        $.ajax({
+            url: '/updateRevenue',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedData),
+            success: function(response) {
+                if (response.success) {
+                    
+                alert(response.message);
+                window.location.reload();
+                } else {
+                    alert("Error updating revenue.");
+                }
+
+            },
+            error: function(error) {
+                console.error("Error updating revenue:", error);
+                alert("An error occurred while updating the revenue.");
+            }
+        });
+    });
+
+
+        </script>
+
+
+        <!-- Javascripts -->
+        <script src="assets/plugins/jquery/jquery-3.1.0.min.js"></script>
+        <script src="assets/plugins/bootstrap/popper.min.js"></script>
+        <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="assets/js/lime.min.js"></script>
+        <script src="assets/js/pages/todo.js"></script>
+    </body>
+</html>
