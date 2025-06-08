@@ -16,7 +16,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
     if (!localStorage.getItem("user")) {
-        window.location.href = "login";
+        window.location.href = "/login";
     }    
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -153,7 +153,7 @@
         const selectedValue = this.value; // Format: YYYY-MM
         if (selectedValue) {
             // Redirect to /summary?date=YYYY-MM
-            window.location.href = `http://localhost:3000/summary?date=${selectedValue}`;
+            window.location.href = `${window.location.origin}/summary?date=${selectedValue}`;
         }
     });
 </script>
