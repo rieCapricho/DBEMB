@@ -1364,7 +1364,7 @@ app.get('/login-history', (req, res) => {
     JOIN login l ON lh.LoginID = l.LoginID
     JOIN officer o ON l.OfficerID = o.OfficerID
     JOIN person p ON o.PersonID = p.PersonID
-    ORDER BY lh.login_time DESC
+    ORDER BY lh.id DESC
   `;
 
   db.query(sql, (err, results) => {

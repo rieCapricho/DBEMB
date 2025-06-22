@@ -201,95 +201,76 @@
 
 
             $(document).ready(function () {
-                // Fetch data for the last 6 months
-                const months = [];
-                const currentDate = new Date();
-                for (let i = 5; i >= 0; i--) {
-                    const date = new Date(currentDate);
-                    date.setMonth(currentDate.getMonth() - i);
-                    months.push(date.toISOString().slice(0, 7)); // Format: YYYY-MM
+    // Fetch data for all months of current year
+    const months = [];
+    const currentYear = new Date().getFullYear();
+    
+    for (let month = 0; month < 12; month++) {
+        months.push(`${currentYear}-${String(month + 1).padStart(2, '0')}`);
+    }
+
+    // Arrays to store totals
+    const totalRevenues = [];
+    const totalExpenses = [];
+
+    // Fetch data for each month
+    const fetchPromises = months.map(month => {
+        return Promise.all([
+            fetch(`/summary/revenues/${month}`).then(response => response.json()),
+            fetch(`/summary/expenses/${month}`).then(response => response.json())
+        ]);
+    });
+
+    Promise.all(fetchPromises).then(results => {
+        results.forEach(([revenues, expenses]) => {
+            totalRevenues.push(revenues.reduce((sum, r) => sum + (r.BandShare || 0), 0));
+            totalExpenses.push(expenses.reduce((sum, e) => sum + (e.Amount || 0), 0));
+        });
+
+        renderChart(months, totalRevenues, totalExpenses);
+    });
+
+    function renderChart(months, revenues, expenses) {
+        const ctx = document.getElementById('barChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: months.map(m => {
+                    const [year, month] = m.split('-');
+                    return new Date(year, month-1).toLocaleString('default', {month: 'long'});
+                }),
+                datasets: [
+                    {
+                        label: 'Revenues',
+                        data: revenues,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Expenses',
+                        data: expenses,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Amount (₱)' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Month' }
+                    }
                 }
-
-                // Arrays to store total revenues and expenses for each month
-                const totalRevenues = [];
-                const totalExpenses = [];
-
-                // Fetch data for each month
-                const fetchPromises = months.map(month => {
-                    return Promise.all([
-                        fetch(`/summary/revenues/${month}`).then(response => response.json()),
-                        fetch(`/summary/expenses/${month}`).then(response => response.json())
-                    ]);
-                });
-
-                // Process fetched data
-                Promise.all(fetchPromises).then(results => {
-                    results.forEach(([revenues, expenses], index) => {
-                        // Calculate total revenue for the month
-                        const revenueTotal = revenues.reduce((sum, revenue) => sum + (revenue.BandShare || 0), 0);
-                        totalRevenues.push(revenueTotal);
-
-                        // Calculate total expense for the month
-                        const expenseTotal = expenses.reduce((sum, expense) => sum + (expense.Amount || 0), 0);
-                        totalExpenses.push(expenseTotal);
-                    });
-
-                    // Render the bar chart
-                    renderBarChart(months, totalRevenues, totalExpenses);
-                }).catch(error => {
-                    console.error("Error fetching data:", error);
-                });
-
-                // Function to render the bar chart
-                function renderBarChart(labels, revenues, expenses) {
-                    const ctx = document.getElementById('barChart').getContext('2d');
-                    new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: labels,
-                            datasets: [
-                                {
-                                    label: 'Total Revenues',
-                                    data: revenues,
-                                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 1
-                                },
-                                {
-                                    label: 'Total Expenses',
-                                    data: expenses,
-                                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                    borderColor: 'rgba(255, 99, 132, 1)',
-                                    borderWidth: 1
-                                }
-                            ]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    title: {
-                                        display: true,
-                                        text: 'Amount (PHP)'
-                                    }
-                                },
-                                x: {
-                                    title: {
-                                        display: true,
-                                        text: 'Month'
-                                    }
-                                }
-                            },
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: 'Monthly Revenues and Expenses'
-                                }
-                            }
-                        }
-                    });
-                }
-            });
+            }
+        });
+    }
+});
         </script>
     </body>
 </html>
