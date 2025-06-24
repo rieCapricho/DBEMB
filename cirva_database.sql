@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2025 at 08:18 PM
+-- Generation Time: Jun 23, 2025 at 03:57 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,19 +40,11 @@ CREATE TABLE `attendance` (
 
 INSERT INTO `attendance` (`AttendanceID`, `NumberOfMembers`, `EventTypeID`, `date`) VALUES
 (2, 15, 2, '2024-03-02'),
-(3, 20, 3, '2024-03-03'),
-(6, 25, 6, '2024-03-06'),
-(7, 30, 7, '2024-03-07'),
-(8, 22, 8, '2024-03-08'),
-(9, 16, 9, '2024-03-09'),
-(10, 28, 10, '2024-03-10'),
 (11, 14, 11, '2024-03-11'),
 (12, 19, 12, '2024-03-12'),
 (13, 21, 13, '2024-03-13'),
 (14, 26, 14, '2024-03-14'),
 (16, 17, 16, '2024-03-16'),
-(17, 23, 17, '2024-03-17'),
-(18, 27, 18, '2024-03-18'),
 (19, 29, 19, '2024-03-19'),
 (21, 29, 19, '2024-03-19'),
 (22, 31, 20, '2024-03-20');
@@ -78,26 +70,16 @@ CREATE TABLE `eventtype` (
 
 INSERT INTO `eventtype` (`EventTypeID`, `EventName`, `amount_given`, `incharge`, `customer_incharge`, `event_date`) VALUES
 (2, 'Wedding', 1500.00, 1, 'Jose Rafael Cruz', '2025-06-24'),
-(3, 'Corporate Event', 2000.00, 3, 'Juan Miguel Santos', '2025-06-25'),
-(6, 'Charity Event', 3500.00, 6, 'Ramon Eliseo Garcia', '2025-06-03'),
-(7, 'Music Competition', 4000.00, 7, 'Emmanuel Jose Bautista', '2025-06-05'),
-(8, 'School Event', 4500.00, 8, 'Miguel Alfonso Reyes', '2025-06-04'),
-(9, 'Religious Event', 5000.00, 9, 'Alon Gabriel Navarro', '2025-06-07'),
-(10, 'Private Gathering', 5500.00, 10, 'Bayani Ernesto Salazar', '2025-06-08'),
 (11, 'Product Launch', 6000.00, 11, 'Iñigo Tomas Mendoza', '2025-06-09'),
 (12, 'Fundraising Event', 6500.00, 12, 'Maria Isabel Flores', '2025-06-10'),
 (13, 'Sports Event', 7000.00, 13, 'Rosa Clarita Domingo', '2025-06-11'),
 (14, 'Award Ceremony', 7500.00, 14, 'Ligaya Celeste Morales', '2025-06-12'),
 (16, 'Anniversary Celebration', 8500.00, 16, 'Mayumi Andrea Torres', '2025-06-14'),
-(17, 'Cultural Night', 9000.00, 17, 'Amihan Lucia Vergara', '2025-06-15'),
-(18, 'Club Event', 9500.00, 18, 'Dalisay Regina Aquino', '2025-06-16'),
 (19, 'Networking Event', 10000.00, 19, 'Luningning Faye Castillo', '2025-06-17'),
 (20, 'Community Event', 11000.00, 20, 'Teresa Juliana Manalo', '2025-05-21'),
-(37, '3', 3.00, 3, 'Alona Patrice Hidalgo', '2025-06-14'),
 (40, '3asd', 332.00, 1, 'Bituin Serena Robles', '2025-06-21'),
-(41, '3', 3.00, 1, 'Tala Dominique Cruzado', '2025-06-27'),
 (42, '18th Birthday', 18000.00, 1, 'Joyce F', '2025-06-21'),
-(43, '3', 3.00, 1, '3', '2025-06-07');
+(45, 'test', 1000.00, 1, 'tester', '2025-06-10');
 
 -- --------------------------------------------------------
 
@@ -122,9 +104,10 @@ CREATE TABLE `expenses` (
 --
 
 INSERT INTO `expenses` (`ExpenseID`, `DateEncoded`, `Description`, `Amount`, `DateUsed`, `AmountGiven`, `DateGiven`, `OfficerID`, `EventTypeID`) VALUES
-(8, '2025-06-07', 'Transpo', 1000.00, '2025-05-20', 1000.00, '2025-05-20', 1, 20),
-(11, '2025-06-08', '3', 3.00, '2025-12-01', 23.00, '2025-12-01', 1, 42),
-(12, '2025-06-08', '3', 3.00, '2025-12-01', 3.00, '2025-12-01', 1, 41);
+(11, '2025-06-08', '3', 350.00, '2025-06-21', 350.00, '2025-06-21', 1, 42),
+(14, '2025-06-10', 'test', 100.00, '2025-06-10', 100.00, '2025-06-10', 1, 45),
+(15, '2025-06-10', 'test', 1000.00, '2025-08-10', 1000.00, '2025-08-10', 1, 40),
+(16, '2025-06-23', 'Transport', 200.00, '2025-06-30', 200.00, '2025-06-23', 1, 20);
 
 -- --------------------------------------------------------
 
@@ -143,21 +126,11 @@ CREATE TABLE `incharge` (
 
 INSERT INTO `incharge` (`InchargeID`, `PersonID`) VALUES
 (1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(6, 6),
-(7, 7),
-(8, 8),
-(9, 9),
-(10, 10),
 (11, 11),
 (12, 12),
 (13, 13),
 (14, 14),
 (16, 16),
-(17, 17),
-(18, 18),
 (19, 19),
 (20, 20),
 (25, 25),
@@ -185,14 +158,7 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`LoginID`, `OfficerID`, `Username`, `Password`, `Status`) VALUES
 (1, 1, 'user1', '$2b$10$9SFbXBVV1.RL.M0KAknwx.0YIwW847aNuWP3dQ.9JFJDtdU26uqBi', 'Active'),
-(2, 2, 'user2', '$2b$10$mDHNGyyLSkokN.rVb3h7a.P7s3FG1fNN0u2cN4.wMFoDAtiYaKJH2', 'Inactive'),
-(3, 3, 'user3', '$2b$10$wrF4s.OKu9tctb77DC4p4ebrW1TbOUlGliqx1/isrwocT86BF8EB6', 'Active'),
-(6, 6, 'user6', '$2b$10$omuWyHGQorRLO5Wnb3de5epWD7QybhxssNUz0/sVYrrfLkEWpSPv.', 'Active'),
-(7, 7, 'user7', '$2b$10$MFf83wasZVk03OK5y6OCh.8WGGuDvooE2OBHB8OaEp/cNDetDpgDG', 'Active'),
-(8, 8, 'user8', '$2b$10$mHSZJLtE2UmT/IQe5uUlMeijTucXU/HjnVs5iuVA5jDnFAI6psBFq', 'Active'),
-(9, 9, 'user9', '$2b$10$CgLITH0tmF2FjLPaH5QIE.u2p6zY9t2pHHOUPgXDOWNynUZjrNzei', 'Active'),
-(10, 10, 'user10', '$2b$10$kyqpJARKDLfPHg3Ob/CJM.tL/JIsA.9.JyEK.TSAY91/7ocBPzlyy', 'Active'),
-(11, 11, 'user11', '$2b$10$dzdC0By.gCPEOD9qf31A3e71uGmZLEK/6UBnjBGBIaDLvlLAj6Ori', 'Active'),
+(11, 11, 'user11', '$2b$10$dzdC0By.gCPEOD9qf31A3e71uGmZLEK/6UBnjBGBIaDLvlLAj6Ori', 'Inactive'),
 (12, 12, 'user12', '$2b$10$4CQ2xvmula5zJtX9UDOb0OmPmO/7yl6oe331FI5nQ.Q7bX1VAPn8.', 'Active'),
 (13, 13, 'user13', '$2b$10$Kdfdony4azJA3P0HhGTzZ.XEW0UXS13GEULX/u1jB0MRqXpcCvdfy', 'Active'),
 (14, 14, 'user14', '$2b$10$/Uh3f5Vn5rVdse7cT3XDcenpdhacyFnc7bfuOej2zl1IQ2ubtwsym', 'Active'),
@@ -220,7 +186,6 @@ INSERT INTO `login_history` (`id`, `LoginID`, `login_time`) VALUES
 (38, 1, 'Saturday, June 7, 2025 at 03:40:03 PM'),
 (39, 1, 'Saturday, June 7, 2025 at 03:41:20 PM'),
 (40, 1, 'Saturday, June 7, 2025 at 03:41:46 PM'),
-(41, 2, 'Saturday, June 7, 2025 at 03:42:10 PM'),
 (42, 1, 'Saturday, June 7, 2025 at 03:42:45 PM'),
 (49, 1, 'Saturday, June 7, 2025 at 09:13:29 PM'),
 (50, 1, 'Saturday, June 7, 2025 at 09:17:18 PM'),
@@ -230,7 +195,84 @@ INSERT INTO `login_history` (`id`, `LoginID`, `login_time`) VALUES
 (54, 1, 'Sunday, June 8, 2025 at 12:51:51 AM'),
 (55, 1, 'Sunday, June 8, 2025 at 01:49:42 AM'),
 (56, 1, 'Sunday, June 8, 2025 at 02:00:32 AM'),
-(57, 1, 'Sunday, June 8, 2025 at 02:17:21 AM');
+(57, 1, 'Sunday, June 8, 2025 at 02:17:21 AM'),
+(58, 1, 'Sunday, June 8, 2025 at 03:07:14 AM'),
+(59, 1, 'Sunday, June 8, 2025 at 03:08:41 AM'),
+(60, 1, 'Sunday, June 8, 2025 at 03:12:47 AM'),
+(61, 1, 'Sunday, June 8, 2025 at 03:20:08 AM'),
+(62, 1, 'Sunday, June 8, 2025 at 10:59:03 AM'),
+(63, 1, 'Sunday, June 8, 2025 at 06:06:03 PM'),
+(64, 1, 'Sunday, June 8, 2025 at 07:49:31 PM'),
+(65, 1, 'Sunday, June 8, 2025 at 09:58:55 PM'),
+(66, 1, 'Sunday, June 8, 2025 at 10:02:17 PM'),
+(67, 1, 'Sunday, June 8, 2025 at 10:07:16 PM'),
+(68, 1, 'Sunday, June 8, 2025 at 10:10:07 PM'),
+(69, 1, 'Sunday, June 8, 2025 at 10:14:25 PM'),
+(70, 1, 'Sunday, June 8, 2025 at 10:15:14 PM'),
+(71, 1, 'Sunday, June 8, 2025 at 10:17:37 PM'),
+(72, 1, 'Sunday, June 8, 2025 at 10:18:56 PM'),
+(73, 1, 'Sunday, June 8, 2025 at 10:25:03 PM'),
+(74, 1, 'Sunday, June 8, 2025 at 10:29:58 PM'),
+(75, 1, 'Sunday, June 8, 2025 at 10:58:15 PM'),
+(76, 1, 'Sunday, June 8, 2025 at 10:59:17 PM'),
+(77, 1, 'Sunday, June 8, 2025 at 11:06:57 PM'),
+(78, 1, 'Sunday, June 8, 2025 at 11:07:25 PM'),
+(79, 1, 'Sunday, June 8, 2025 at 11:23:40 PM'),
+(80, 1, 'Sunday, June 8, 2025 at 11:28:33 PM'),
+(81, 1, 'Sunday, June 8, 2025 at 11:32:08 PM'),
+(82, 1, 'Sunday, June 8, 2025 at 11:32:41 PM'),
+(83, 1, 'Monday, June 9, 2025 at 04:37:12 PM'),
+(84, 1, 'Monday, June 9, 2025 at 06:29:43 PM'),
+(85, 1, 'Monday, June 9, 2025 at 11:54:02 PM'),
+(86, 1, 'Tuesday, June 10, 2025 at 12:00:42 AM'),
+(87, 1, 'Tuesday, June 10, 2025 at 12:02:47 AM'),
+(88, 1, 'Tuesday, June 10, 2025 at 11:27:00 AM'),
+(89, 1, 'Tuesday, June 10, 2025 at 11:27:12 AM'),
+(90, 1, 'Tuesday, June 10, 2025 at 11:45:01 AM'),
+(91, 1, 'Tuesday, June 10, 2025 at 09:40:43 PM'),
+(92, 1, 'Tuesday, June 10, 2025 at 09:45:03 PM'),
+(93, 1, 'Tuesday, June 10, 2025 at 09:58:22 PM'),
+(94, 1, 'Tuesday, June 10, 2025 at 10:09:55 PM'),
+(95, 1, 'Tuesday, June 10, 2025 at 10:13:52 PM'),
+(96, 1, 'Tuesday, June 10, 2025 at 10:44:20 PM'),
+(97, 11, 'Tuesday, June 10, 2025 at 10:54:53 PM'),
+(98, 1, 'Tuesday, June 10, 2025 at 10:54:59 PM'),
+(99, 12, 'Tuesday, June 10, 2025 at 10:56:10 PM'),
+(100, 1, 'Tuesday, June 10, 2025 at 11:20:58 PM'),
+(101, 1, 'Monday, June 16, 2025 at 08:50:10 PM'),
+(102, 1, 'Monday, June 16, 2025 at 08:50:10 PM'),
+(103, 1, 'Wednesday, June 18, 2025 at 10:12:45 PM'),
+(104, 1, 'Wednesday, June 18, 2025 at 10:14:42 PM'),
+(105, 14, 'Wednesday, June 18, 2025 at 10:15:00 PM'),
+(106, 1, 'Sunday, June 22, 2025 at 05:39:16 PM'),
+(107, 1, 'Monday, June 23, 2025 at 06:34:40 PM');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `members`
+--
+
+CREATE TABLE `members` (
+  `member_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `role` varchar(50) NOT NULL,
+  `status` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`member_id`, `name`, `role`, `status`, `description`, `created_at`, `updated_at`) VALUES
+(17, 'sdas', 'rar', 'Active', 'sad', '2025-06-08 05:11:18', '2025-06-08 14:05:19'),
+(18, 'zd', 'sd', 'Active', 'DS', '2025-06-08 05:31:06', '2025-06-08 05:31:06'),
+(19, 'Kryz Gray', 'Colorguard', 'Inactive', 'available', '2025-06-08 07:01:52', '2025-06-10 14:12:58'),
+(20, 'dgd', 'fu', 'Active', 'uygu', '2025-06-10 14:13:04', '2025-06-23 10:44:04'),
+(21, 'Allan Dela Cruz', 'Instrumentalist', 'Active', 'Available every weekends', '2025-06-23 10:43:50', '2025-06-23 10:43:50');
 
 -- --------------------------------------------------------
 
@@ -250,21 +292,11 @@ CREATE TABLE `officer` (
 
 INSERT INTO `officer` (`OfficerID`, `PersonID`, `RoleDescription`) VALUES
 (1, 1, 'Manager'),
-(2, 2, 'Assistant'),
-(3, 3, 'Coordinator'),
-(4, 4, 'Supervisor'),
-(6, 6, 'Secretary'),
-(7, 7, 'Lead'),
-(8, 8, 'Officer'),
-(9, 9, 'Director'),
-(10, 10, 'Assistant'),
 (11, 11, 'Manager'),
 (12, 12, 'Coordinator'),
 (13, 13, 'Supervisor'),
 (14, 14, 'Lead'),
 (16, 16, 'Administrator'),
-(17, 17, 'Officer'),
-(18, 18, 'Director'),
 (19, 19, 'Assistant'),
 (20, 20, 'Coordinator'),
 (25, 25, 'new'),
@@ -298,7 +330,10 @@ CREATE TABLE `payment` (
 INSERT INTO `payment` (`PaymentID`, `RevenueID`, `PaymentDate`, `ModeOfPayment`, `AmountPaid`, `Remarks`, `Balance`, `DateReceived`, `OfficerID`, `receipt_src`) VALUES
 (10, 15, '2025-05-20', 'Cash', 20000.00, 'Full', 0.00, '2025-05-20', 1, 'uploads\\receipt-1749302422285-570666116.JPG'),
 (11, 15, '2025-06-20', 'Cash', 3333.00, 'Partial', 0.00, '2025-06-05', 1, 'uploads/receipt-1749304428568-989772494.png'),
-(14, 17, '2025-06-21', 'Cash', 3.00, 'Partial', 0.00, '2025-06-21', 1, 'uploads\\receipt-1749318123580-443136621.JPG');
+(14, 17, '2025-06-21', 'Cash', 3.00, 'Partial', 0.00, '2025-06-21', 1, 'uploads\\receipt-1749318123580-443136621.JPG'),
+(15, 18, '2025-06-08', 'Cash', 10000.00, 'Full', 0.00, '2025-06-08', 1, 'uploads\\receipt-1749465130404-433037694.jpg'),
+(16, 19, '2025-06-10', 'Cash', 323.00, 'Full', 0.00, '2025-06-10', 1, 'uploads\\receipt-1749527164671-915268999.jpg'),
+(18, 21, '2025-06-10', '', 1000.00, 'Full', 0.00, '2025-06-10', 1, 'uploads\\receipt-1749564682593-54013128.jpg');
 
 -- --------------------------------------------------------
 
@@ -319,21 +354,11 @@ CREATE TABLE `person` (
 
 INSERT INTO `person` (`PersonID`, `FirstName`, `LastName`, `ContactNumber`) VALUES
 (1, 'John', 'Doe', '09123456789'),
-(2, 'Jane', 'Smith', '09234567890'),
-(3, 'Michael', 'Johnson', '09345678901'),
-(4, 'Emily', 'Williams', '09456789012'),
-(6, 'Sarah', 'Jones', '09678901234'),
-(7, 'James', 'Miller', '09789012345'),
-(8, 'Laura', 'Davis', '09890123456'),
-(9, 'Robert', 'Garcia', '09901234567'),
-(10, 'Linda', 'Martinez', '09112345678'),
 (11, 'Thomas', 'Rodriguez', '09223456789'),
 (12, 'Jessica', 'Wilson', '09334567890'),
 (13, 'William', 'Taylor', '09445678901'),
 (14, 'Patricia', 'Anderson', '09556789012'),
 (16, 'Elizabeth', 'Jackson', '09778901234'),
-(17, 'Daniel', 'White', '09889012345'),
-(18, 'Helen', 'Harris', '09990123456'),
 (19, 'Christopher', 'Martin', '09101234567'),
 (20, 'Nancy', 'Lee', '09212345678'),
 (25, 'New', 'new', '2'),
@@ -359,21 +384,11 @@ CREATE TABLE `recordkeeper` (
 
 INSERT INTO `recordkeeper` (`KeeperID`, `PersonID`, `OfficerID`) VALUES
 (1, 1, 1),
-(2, 2, 2),
-(3, 3, 3),
-(4, 4, 4),
-(6, 6, 6),
-(7, 7, 7),
-(8, 8, 8),
-(9, 9, 9),
-(10, 10, 10),
 (11, 11, 11),
 (12, 12, 12),
 (13, 13, 13),
 (14, 14, 14),
 (16, 16, 16),
-(17, 17, 17),
-(18, 18, 18),
 (19, 19, 19),
 (20, 20, 20),
 (25, 25, 25),
@@ -404,7 +419,11 @@ CREATE TABLE `revenues` (
 
 INSERT INTO `revenues` (`RevenueID`, `EventTypeID`, `Description`, `AmountGiven`, `BandShare`, `NumberOfMembers`, `MembersTalentFee`, `KeeperID`) VALUES
 (15, 20, '3', 11000.00, 324.00, 3, 3558.67, 1),
-(17, 42, '3', 18000.00, 3.00, 3, 5999.00, 1);
+(17, 42, '3', 18000.00, 3.00, 3, 5999.00, 1),
+(18, 19, 'hotel', 10000.00, 3000.00, 20, 350.00, 1),
+(19, 40, 'hotel', 332.00, 20.00, 10, 31.20, 1),
+(21, 45, 'test', 1000.00, 200.00, 20, 40.00, 1),
+(22, 16, 'hotel', 8500.00, 500.00, 20, 400.00, 1);
 
 --
 -- Indexes for dumped tables
@@ -451,6 +470,12 @@ ALTER TABLE `login`
 ALTER TABLE `login_history`
   ADD PRIMARY KEY (`id`),
   ADD KEY `LoginID` (`LoginID`);
+
+--
+-- Indexes for table `members`
+--
+ALTER TABLE `members`
+  ADD PRIMARY KEY (`member_id`);
 
 --
 -- Indexes for table `officer`
@@ -503,13 +528,13 @@ ALTER TABLE `attendance`
 -- AUTO_INCREMENT for table `eventtype`
 --
 ALTER TABLE `eventtype`
-  MODIFY `EventTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `EventTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `ExpenseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ExpenseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `incharge`
@@ -527,7 +552,13 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `login_history`
 --
 ALTER TABLE `login_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+
+--
+-- AUTO_INCREMENT for table `members`
+--
+ALTER TABLE `members`
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `officer`
@@ -539,7 +570,7 @@ ALTER TABLE `officer`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `person`
@@ -557,7 +588,7 @@ ALTER TABLE `recordkeeper`
 -- AUTO_INCREMENT for table `revenues`
 --
 ALTER TABLE `revenues`
-  MODIFY `RevenueID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `RevenueID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -583,43 +614,10 @@ ALTER TABLE `incharge`
   ADD CONSTRAINT `incharge_ibfk_1` FOREIGN KEY (`PersonID`) REFERENCES `person` (`PersonID`);
 
 --
--- Constraints for table `login`
---
-ALTER TABLE `login`
-  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`OfficerID`) REFERENCES `officer` (`OfficerID`);
-
---
 -- Constraints for table `login_history`
 --
 ALTER TABLE `login_history`
   ADD CONSTRAINT `login_history_ibfk_1` FOREIGN KEY (`LoginID`) REFERENCES `login` (`LoginID`);
-
---
--- Constraints for table `officer`
---
-ALTER TABLE `officer`
-  ADD CONSTRAINT `officer_ibfk_1` FOREIGN KEY (`PersonID`) REFERENCES `person` (`PersonID`);
-
---
--- Constraints for table `payment`
---
-ALTER TABLE `payment`
-  ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`RevenueID`) REFERENCES `revenues` (`RevenueID`),
-  ADD CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`OfficerID`) REFERENCES `officer` (`OfficerID`);
-
---
--- Constraints for table `recordkeeper`
---
-ALTER TABLE `recordkeeper`
-  ADD CONSTRAINT `recordkeeper_ibfk_1` FOREIGN KEY (`PersonID`) REFERENCES `person` (`PersonID`),
-  ADD CONSTRAINT `recordkeeper_ibfk_2` FOREIGN KEY (`OfficerID`) REFERENCES `officer` (`OfficerID`);
-
---
--- Constraints for table `revenues`
---
-ALTER TABLE `revenues`
-  ADD CONSTRAINT `revenues_ibfk_1` FOREIGN KEY (`EventTypeID`) REFERENCES `eventtype` (`EventTypeID`),
-  ADD CONSTRAINT `revenues_ibfk_3` FOREIGN KEY (`KeeperID`) REFERENCES `recordkeeper` (`KeeperID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
